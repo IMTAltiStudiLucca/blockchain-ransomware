@@ -1,0 +1,1060 @@
+[
+    {
+        "file": "./Ransomchats/Darkside/20201115.json",
+        "addr": [
+            "IMG_20201120_152145__02__01"
+        ],
+        "content": "last page\n            \n\nIMG_20201120_152145__02__01.jpg\n5.06 MB",
+        "ts": "4 days  ago",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/Darkside/20210413.json",
+        "addr": [
+            "c5421cf9271e05e7b323e000d9283ec8"
+        ],
+        "content": "You are very small client, see your infrastructure, after agreement and payment\n1) we will decrypt instantly your network\n2) if you need - provide file tree , with all taken files\n3) delete data from our servers\n\nSome random files for proof:\nhttps://www.sendspace.com/file/[redacted]\nhttps://www.sendspace.com/delete/[redacted]/c5421cf9271e05e7b323e000d9283ec8\npass: [redacted]\n\nDon`t waste our time, how we don`t wasting your. Rules for all clients same.\n\nThank for understanding",
+        "ts": "17 days  ago,",
+        "sender": "Darkside"
+    },
+    {
+        "file": "./Ransomchats/Avos/20210903.json",
+        "addr": [
+            "TokenLeakDetectDelaySecs"
+        ],
+        "content": "To override this default you can add the following registry  dword, TokenLeakDetectDelaySecs, and set it to a recommended value of  30 seconds. HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\  Stop storing passwords in memory by changing the \u201cUseLogonCredential\u201d  registry setting to \u20180\u2019 instead of the default value of \u201c1\u201d and  passwords are no longer available to Mimikatz .  HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\SecurityProviders\\WDigest  Start monitoring your systems for unauthorized software and malware,  which should help identify Mimikatz installation and activity. You\u2019ll  have to test these changes to see what breaks, but the idea is to  implement some fairly basic changes to protect your network. In your  specific case the critical vulnerabiliry contained Forti VPN, please  update FortiVpn and monitor for updates and Windows updates. Inform your  IT stuff to remove the posibility of storing user passwords within the  network.",
+        "ts": "Thu, 09 Sep 2021 15:05:24 GMT",
+        "sender": "Avos"
+    },
+    {
+        "file": "./Ransomchats/Babuk/20210203.json",
+        "addr": [
+            "revolut_will_not_allow_you_to_send_purchased"
+        ],
+        "content": "admin:https://www.reddit.com/r/BitcoinUK/comments/7gv9ia/revolut_will_not_allow_you_to_send_purchased/",
+        "ts": "",
+        "sender": "Babuk"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/**************************149576.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/[redacted]",
+        "ts": "27.07.2022 15:27:49 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/guardiananalytics_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "l9CJbdl41d7D63q4mqOqFKr5J51WnTc"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/B7nw21zyp0#Vs4i8UYkOND+l9CJbdl41d7D63q4mqOqFKr5J51WnTc=",
+        "ts": "23.01.2023 20:17:51 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/guardiananalytics_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/7euRu5oS8H#o4JXC3kNBGtz92nX2rD/dcr6+ugjn58jEq50mrdP2is=",
+        "ts": "29.01.2023 18:52:34 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/guardiananalytics_com.json",
+        "addr": [
+            "lockbitapt5x4zkjbcqmz6frdhecqqgadevyiwqxukksspnlidyvd7qd",
+            "bDjEc78I3iPrVRdZ63dc58d7a5332"
+        ],
+        "content": "http://lockbitapt5x4zkjbcqmz6frdhecqqgadevyiwqxukksspnlidyvd7qd.onion/post/bDjEc78I3iPrVRdZ63dc58d7a5332",
+        "ts": "03.02.2023 00:44:28 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/datair_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "Cs1JZTbKNhPltLyYpVoEstJJ878owc"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/v1UfFE6UTG#IRNh78aAu+Nu+Cs1JZTbKNhPltLyYpVoEstJJ878owc=",
+        "ts": "24.12.2022 14:44:28 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/datair_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "Cs1JZTbKNhPltLyYpVoEstJJ878owc"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/v1UfFE6UTG#IRNh78aAu+Nu+Cs1JZTbKNhPltLyYpVoEstJJ878owc=",
+        "ts": "24.12.2022 14:59:02 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/datair_com.json",
+        "addr": [
+            "14mwyF23z3NMaWumKcP6P2yEeiZsjFpS7J"
+        ],
+        "content": "BTC Wallet 14mwyF23z3NMaWumKcP6P2yEeiZsjFpS7J",
+        "ts": "24.12.2022 18:29:13 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/datair_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "mdmHYFTbYU3oSJ4P63bd7fb7214ee"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/mdmHYFTbYU3oSJ4P63bd7fb7214ee",
+        "ts": "10.01.2023 15:04:18 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/datair_com.json",
+        "addr": [
+            "Electronic_Communications_Privacy_Act"
+        ],
+        "content": "Also recall that the spreading of correspondence is punishable by huge fines, as well as administrative penalties up to the liquidation of the company. https://en.wikipedia.org/wiki/Electronic_Communications_Privacy_Act",
+        "ts": "13.02.2023 21:43:42 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/datair_com.json",
+        "addr": [
+            "actuariesandassociates"
+        ],
+        "content": "Let's start with corporate correspondence. Since we have your confidential files, we have access to your correspondence. The first people to receive your shared correspondence are: 1.Anne Vandeveer ABV Retirement Plan Advisors, Inc. anne@abvadvisors.com (855) 550-0228 2.Van Shelton Actuaries & Associates (Amarillo) van@actuariesandassociates.com (806) 373-3624 3.Lorraine Dorsa Aegis Pension Services LDorsa@AegisPension.com (904) 686-1835",
+        "ts": "21.02.2023 22:49:31 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/scohil_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "dpgrmsJyo4M11cL362e7fe29e97df"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/dpgrmsJyo4M11cL362e7fe29e97df",
+        "ts": "01.08.2022 16:27:28 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/millennia_pro.json",
+        "addr": [
+            "files_tree_b4e3588c39"
+        ],
+        "content": "File: [files_tree_b4e3588c39.txt]",
+        "ts": "05.01.2023 05:26:10 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/millennia_pro.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "VYc1R91Gxwt5BDy663ba99b790b12"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/VYc1R91Gxwt5BDy663ba99b790b12",
+        "ts": "09.01.2023 16:43:52 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/millennia_pro.json",
+        "addr": [
+            "bc1qx9upga7f09tsetqf78wa3qrmcjar58mkwz6ng6"
+        ],
+        "content": "bc1qx9upga7f09tsetqf78wa3qrmcjar58mkwz6ng6 - BTC wallet",
+        "ts": "09.01.2023 16:57:36 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/psenergy_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "mBkFFM00AbKH3NQ05wHAQIVn3XEbo"
+        ],
+        "content": "Download link: http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/VmT_e83d36#JUJA8/mBkFFM00AbKH3NQ05wHAQIVn3XEbo/L6++qg8=",
+        "ts": "29.03.2023 17:12:01 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/psenergy_com.json",
+        "addr": [
+            "ReportsDownloaded181219125827"
+        ],
+        "content": "PSE DIRECT DEPOSIT FOR CLIENTS.pdf, Card List 062818.xlsx, AR Aged Trial Balance Xcel Voyager through 08.26.2021.pdf, ReportsDownloaded181219125827.zip",
+        "ts": "04.04.2023 15:36:58 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/psenergy_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "BlrARE0XcSZtfAbgoxSLIffrw0yJ"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/josE4h6zkh#BlrARE0XcSZtfAbgoxSLIffrw0yJ+KthTZOKMN8buAk=",
+        "ts": "04.04.2023 16:05:36 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/bakkerheftrucks_com.json",
+        "addr": [
+            "0384F759C4124EF970C8201B0AE06EBD"
+        ],
+        "content": "We would like to get back our files etc. Our personal ID is 0384F759C4124EF970C8201B0AE06EBD. What are you're instructions to get our data back ?",
+        "ts": "12.09.2022 10:08:50 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/royalmailgroup_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/Qf1vQvhUFc#4SeWq/sOuiflDvxVX34FQW+Ew2pN4lDmJ7K+lVuDJYY=",
+        "ts": "12.01.2023 13:47:01 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/royalmailgroup_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/pLvXayqTYa#qnGb1vVJO5/b3H3+J3GzDDd1/bEQw/aXxx3Qqb745nE=",
+        "ts": "18.01.2023 19:16:19 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/royalmailgroup_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid",
+            "lockbitfilzu5e62fybhieutf6653cpv6wco7twgjtkqwdgubn4q5rad"
+        ],
+        "content": "Use this sites File Share: lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid.onion lockbitfilzu5e62fybhieutf6653cpv6wco7twgjtkqwdgubn4q5rad.onion",
+        "ts": "20.01.2023 21:28:36 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/royalmailgroup_com.json",
+        "addr": [
+            "lockbitfilzu5e62fybhieutf6653cpv6wco7twgjtkqwdgubn4q5rad",
+            "LYMcNluBchgdtruoQGG8OybtV9LZknTxkYR7JGKOk5c"
+        ],
+        "content": "Think I did this right. Here's some files: http://lockbitfilzu5e62fybhieutf6653cpv6wco7twgjtkqwdgubn4q5rad.onion/r/wU18mauk0V#LYMcNluBchgdtruoQGG8OybtV9LZknTxkYR7JGKOk5c=",
+        "ts": "21.01.2023 04:00:32 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/royalmailgroup_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "1EE8yMFqPrjD5q9wrPPejtEpdhWwEUH1OhHx"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/8oqC8jKaBN#1EE8yMFqPrjD5q9wrPPejtEpdhWwEUH1OhHx+lm6CAM=",
+        "ts": "26.01.2023 20:17:33 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/royalmailgroup_com.json",
+        "addr": [
+            "aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8",
+            "AQAAAHuwwya8Vr_ETqomIFym90OHoOGvCLlLONYPwCbLmCiF19qs4A2x68Rge0ICtwVtRfnOeQIctYx5A0epfJT5t2u73JkDFGhBtrJFtpwWWlf3Y_Qbxtj8aL5TcfVxyrg_tvh7vJNNb3y9Ex0WXLu5iuj7visZOGG5yE8wufn912Bq"
+        ],
+        "content": "https://techcrunch.com/2023/01/17/royal-mail-cyberattack-disruption-lawmakers/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAAHuwwya8Vr_ETqomIFym90OHoOGvCLlLONYPwCbLmCiF19qs4A2x68Rge0ICtwVtRfnOeQIctYx5A0epfJT5t2u73JkDFGhBtrJFtpwWWlf3Y_Qbxtj8aL5TcfVxyrg_tvh7vJNNb3y9Ex0WXLu5iuj7visZOGG5yE8wufn912Bq",
+        "ts": "27.01.2023 19:41:37 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/royalmailgroup_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "TqvYTKKoycawsXyg63e0f8ce66113"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/TqvYTKKoycawsXyg63e0f8ce66113",
+        "ts": "06.02.2023 12:52:43 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/okcu_edu.json",
+        "addr": [
+            "2B7ZqLrVELTtZeNCoC4nKryX7M8RCdOtsKYSYu"
+        ],
+        "content": "https://www.sendspace.com/filegroup/D3EEdan6%2FdiyCXs%2FnsDKr36E%2Bln%2B7ZqLrVELTtZeNCoC4nKryX7M8RCdOtsKYSYu",
+        "ts": "25.07.2022 11:14:25 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/nicklaus_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "sS6QQig1vV0mZa2T63e0f561ef4dc"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/sS6QQig1vV0mZa2T63e0f561ef4dc",
+        "ts": "07.02.2023 03:20:42 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/vitalityhp_net.json",
+        "addr": [
+            "lockbitsupa7e3b4pkn4mgkgojrl5iqgx24clbzc4xm7i6jeetsia3qd",
+            "lockbitsupdwon76nzykzblcplixwts4n4zoecugz2bxabtapqvmzqqd",
+            "lockbitsupn2h6be2cnqpvncyhj4rgmnwn44633hnzzmtxdvjoqlp7yd",
+            "lockbitsupo7vv5vcl3jxpsdviopwvasljqcstym6efhh6oze7c6xjad",
+            "lockbitsupq3g62dni2f36snrdb4n5qzqvovbtkt5xffw3draxk6gwqd",
+            "lockbitsupqfyacidr6upt6nhhyipujvaablubuevxj6xy3frthvr3yd",
+            "lockbitsupt7nr3fa6e7xyb73lk6bw6rcneqhoyblniiabj4uwvzapqd",
+            "lockbitsupuhswh4izvoucoxsbnotkmgq6durg7kficg6u33zfvq3oyd",
+            "lockbitsupxcjntihbmat4rrh7ktowips2qzywh6zer5r3xafhviyhqd"
+        ],
+        "content": "You can reach us at any of these links using a Tor browser: http://lockbitsupa7e3b4pkn4mgkgojrl5iqgx24clbzc4xm7i6jeetsia3qd.onion http://lockbitsupdwon76nzykzblcplixwts4n4zoecugz2bxabtapqvmzqqd.onion http://lockbitsupn2h6be2cnqpvncyhj4rgmnwn44633hnzzmtxdvjoqlp7yd.onion http://lockbitsupo7vv5vcl3jxpsdviopwvasljqcstym6efhh6oze7c6xjad.onion http://lockbitsupq3g62dni2f36snrdb4n5qzqvovbtkt5xffw3draxk6gwqd.onion http://lockbitsupqfyacidr6upt6nhhyipujvaablubuevxj6xy3frthvr3yd.onion http://lockbitsupt7nr3fa6e7xyb73lk6bw6rcneqhoyblniiabj4uwvzapqd.onion http://lockbitsupuhswh4izvoucoxsbnotkmgq6durg7kficg6u33zfvq3oyd.onion http://lockbitsupxcjntihbmat4rrh7ktowips2qzywh6zer5r3xafhviyhqd.onion",
+        "ts": "17.09.2022 02:48:57 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/vitalityhp_net.json",
+        "addr": [
+            "lockbitsupdwon76nzykzblcplixwts4n4zoecugz2bxabtapqvmzqqd"
+        ],
+        "content": "now it looks like http://lockbitsupdwon76nzykzblcplixwts4n4zoecugz2bxabtapqvmzqqd.onion/ its working",
+        "ts": "17.09.2022 02:49:44 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/plasticproductsco_com.json",
+        "addr": [
+            "lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid",
+            "ncp9lBDKFuN2sqExl0YlgtKF"
+        ],
+        "content": "http://lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid.onion/r/NxYjoaq6Zz#ncp9lBDKFuN2sqExl0YlgtKF/Nv3qtIHBoJ0vulmJ5w=",
+        "ts": "05.03.2023 16:39:04 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/plasticproductsco_com.json",
+        "addr": [
+            "lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid",
+            "lOJa5TdIvZbkpeDA5BDLPO18YmFcz0dfl7u8SgwhpsY"
+        ],
+        "content": "Download link: http://lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid.onion/r/7SZGD6mkDa#lOJa5TdIvZbkpeDA5BDLPO18YmFcz0dfl7u8SgwhpsY=",
+        "ts": "06.03.2023 10:30:21 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/plasticproductsco_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "lNnvlD8Cg2jQbYGA640f5ba593ed3"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/lNnvlD8Cg2jQbYGA640f5ba593ed3",
+        "ts": "13.03.2023 17:13:45 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/wabteccorp_com.json",
+        "addr": [
+            "5446731864718376751313472162"
+        ],
+        "content": "password = 5446731864718376751313472162",
+        "ts": "30.06.2022 15:10:03 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/wabteccorp_com.json",
+        "addr": [
+            "WCSSRV0453_Commercial_Functions",
+            "CommercialKnowledgePortal",
+            "CRDSRV0008_Documentation_and_Manuals",
+            "wcssrv036_RCV_Public_Drive",
+            "LPZSRV0014_Technologie",
+            "VCISRV0028_Project_Engineering",
+            "BSLSRV0001_Customer_Files",
+            "WBJSRV0002_Accounting",
+            "597D3FCACB12FBFAC9CEBBAFF93D"
+        ],
+        "content": "F:\\wabtec\\files\\WCSSRV0453_Commercial_Functions\\Commercial Functions\\Marketing\\Marketing Effectiveness\\Training Conferences\\What a Declining Business Media Means to CEOs.pdf F:\\wabtec\\files\\CommercialKnowledgePortal\\Commercial Knowledge Portal\\Competitor Intelligence\\CI at Tradeshows\\2010 InnoTrans\\InnoTrans 2010 Photos\\Voith\\Gravita Switcher\\DSC01672.jpg F:\\wabtec\\files\\CRDSRV0008_Documentation_and_Manuals\\Documentation and Manuals\\Vishay Strain Gauge Manuals\\Vishay Micro Measurements\\Vishay M-Line Accessories.pdf  F:\\wabtec\\files\\wcssrv036_RCV_Public_Drive\\RCV_Public_Drive\\SAFETY\\Carson\\Incident -Injury Forms\\WGS SAFETY ALERT NOTICE TEMPLATE.docx F:\\wabtec\\files\\LPZSRV0014_Technologie\\Technologie\\ToPs_Daten\\Dokumente\\LASER\\DATEN\\5185766_1.pdf F:\\wabtec\\files\\VCISRV0028_Project_Engineering\\Project Engineering\\Engineering Administration\\Policies, Procedures and Guidelines\\Travel Policy\\Wabtec Travel and Entertainment Policy - Final_2019-11-01.pdf F:\\wabtec\\files\\WCTSRV0018\\g\\PLM\\WTDSRV0014\\projects\\DenverP3_CP\\1-56468_SLDPRT\\D\\whereused.pdmw F:\\wabtec\\files\\WCMSRV0006_Pre-stagedData\\Pre-stagedData\\Completed Projects\\QJHO01001-JohnHolland-Certification of Points\\E - Engineering\\E2 - Deliverables\\CMC - Turnout Certification\\Checksheets\\03.05.2018 F:\\wabtec\\files\\Departments_hr\\HR\\BENEFITS\\WELLNESS 2016\\Wabtec Online Store Flyer.docx F:\\wabtec\\Manufacturing\\CAR projects\\Wabtec QIP Assessment Info Request.xlsx F:\\wabtec\\files\\WTDSRV0030_Materials\\Materials\\Packing Slips OSWH\\2022\\May 2022\\5-23-22.pdf F:\\wabtec\\files\\Finance1\\turbo_LP\\fixed assets\\TNX\\Tooling\\50311 Balancing tool.pdf F:\\wabtec\\files\\BSLSRV0001_Customer_Files\\Customer Files\\1. Customer Information\\Siemens Mobility\\2021\\Purchase Orders\\PO 4509763478, SO-0014037, 49364-14, 2021-12-14\\Buy America Certificate_Rev.1 (PO 4509763478) - Signed Dec. 22, 2021.pdf F:\\wabtec\\files\\WBJSRV0002_Accounting\\Accounting\\ABNER\\ateixeira\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\Content.IE5\\SH5IQIL6\\597D3FCACB12FBFAC9CEBBAFF93D[1].jpg",
+        "ts": "02.07.2022 20:07:00 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/wabteccorp_com.json",
+        "addr": [
+            "5446731864718376751313472162"
+        ],
+        "content": "password = 5446731864718376751313472162",
+        "ts": "03.07.2022 04:20:57 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/lapostemobile_fr.json",
+        "addr": [
+            "bc1qp5erh27wesmm8sxljg9p39nua02gd02e4cwk2e"
+        ],
+        "content": "bc1qp5erh27wesmm8sxljg9p39nua02gd02e4cwk2e",
+        "ts": "10.07.2022 15:09:20 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/lapostemobile_fr.json",
+        "addr": [
+            "fqh4kwyk4it3iakg2k6mknglsfrrcuvawhjux3i36j5ocgwicaz7wdad"
+        ],
+        "content": "You can see what I have prepared for publication at this link. http://fqh4kwyk4it3iakg2k6mknglsfrrcuvawhjux3i36j5ocgwicaz7wdad.onion/",
+        "ts": "11.07.2022 01:39:33 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/lapostemobile_fr.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "9IlY2fpFeC4ml6Ud62cc276550736"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/9IlY2fpFeC4ml6Ud62cc276550736",
+        "ts": "11.07.2022 13:39:28 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/lapostemobile_fr.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "B2WZ7LY40FmXgY1r62cc3b188a595"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/B2WZ7LY40FmXgY1r62cc3b188a595",
+        "ts": "11.07.2022 15:01:38 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/newbridge_org.json",
+        "addr": [
+            "lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid",
+            "59UjkgcJ3APksKHGhDXjpNhhXTNkiMXxsVAGPmV7DOA"
+        ],
+        "content": "http://lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid.onion/r/EmcJ0p6nJv#59UjkgcJ3APksKHGhDXjpNhhXTNkiMXxsVAGPmV7DOA=",
+        "ts": "27.01.2023 22:54:42 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/newbridge_org.json",
+        "addr": [
+            "AccommodationsAccommodation"
+        ],
+        "content": "Here is the list of files. NEWBRIDGE\\2021 DMHAS license\\licenses expansion\\attachmentsCO - Parsippany.pdf  \\  NEWBRIDGE\\HR\\HR FORMS\\Job Posting & Change FormsCHANGE OF STATUS Checklist 1.14.2020.docx  \\  NEWBRIDGE\\HR\\Job Announcements\\2022Clinician Sparta-FT internal- 9.2.22.docx  \\   NEWBRIDGE\\HR\\HR FORMS\\AccommodationsAccommodation REQUEST - Employee.docx   \\   NEWBRIDGE\\2021 DMHAS license\\continuation letter 1.26.21New Bridge Services  Inc. 1-26-21 Continuation Letter (003).docx",
+        "ts": "04.02.2023 13:34:47 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/newbridge_org.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "9fOlbyIxE9fmiNNfZSDfX9PJ19RHcrlhxrJ9"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/tASrJy1eXM#9fOlbyIxE9fmiNNfZSDfX9PJ19RHcrlhxrJ9/99f7Bg=",
+        "ts": "04.02.2023 15:32:14 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/newbridge_org.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "MM3CQtzq3b0kInv663edf735a5c73"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/MM3CQtzq3b0kInv663edf735a5c73",
+        "ts": "16.02.2023 09:27:18 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/omscomponents_it.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad"
+        ],
+        "content": "OK dar\u00f2 un'occhiata, allora facciamo in un altro modo. Mettere questi file in un archivio: Tutti i file della cartella \"VeeamConfigBackup> VEEAM-SRV\", che hanno una dimensione di ~5MB e sono chiamati \"VEEAM_SRV_2023-02-24_10-00-14.bco.lockbit\". Anche il file \"BACKUP STORICO OMSSBS1.vbm.lockbit\", e il file \"BACKUP DATACENTER.vbm.lockbit\". Caricateli qui ( http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/ )e datemi il link",
+        "ts": "10.03.2023 14:17:06 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/omscomponents_it.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad"
+        ],
+        "content": "Download Link: http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/AS3PCL2tDt#99rokOeWix3P08t/W0tbSSMGM66XhTj+6qZ18e2kTbs=",
+        "ts": "10.03.2023 15:01:03 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/omscomponents_it.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "XrIRVvoamGTfr2ahKA8dkAenJLqhLOi5LCaA0CU2u88"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/8KpBTcau0o#XrIRVvoamGTfr2ahKA8dkAenJLqhLOi5LCaA0CU2u88=",
+        "ts": "16.03.2023 21:32:59 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/omscomponents_it.json",
+        "addr": [
+            "lockbitapt34kvrip6xojylohhxrwsvpzdffgs5z4pbbsywnzsbdguqd",
+            "m4XcsEUi7pPQBn7k642c604d8d970"
+        ],
+        "content": "http://lockbitapt34kvrip6xojylohhxrwsvpzdffgs5z4pbbsywnzsbdguqd.onion/post/m4XcsEUi7pPQBn7k642c604d8d970",
+        "ts": "04.04.2023 17:33:51 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/wcinet_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "RaJMPtdmyk9QGNud23AZ00"
+        ],
+        "content": "Download link: http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/FtAmteMZSo#xWzK5WIC7vBW3wzgFup6/RaJMPtdmyk9QGNud23AZ00=",
+        "ts": "17.02.2023 14:41:17 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/software-line_it.json",
+        "addr": [
+            "bc1qpgggs7j546rfavshtckq4v8x4fh87zztaqw5zz"
+        ],
+        "content": "bc1qpgggs7j546rfavshtckq4v8x4fh87zztaqw5zz",
+        "ts": "09.09.2022 09:52:35 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/chsf_fr.json",
+        "addr": [
+            "bc1qwwym65pfw864lmt9e6v3f5hv08p4v4yqp49fsn"
+        ],
+        "content": "bc1qwwym65pfw864lmt9e6v3f5hv08p4v4yqp49fsn you have to pay test payment to this btc adress",
+        "ts": "27.08.2022 17:17:41 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/chsf_fr.json",
+        "addr": [
+            "bc1qwwym65pfw864lmt9e6v3f5hv08p4v4yqp49fsn"
+        ],
+        "content": "bc1qwwym65pfw864lmt9e6v3f5hv08p4v4yqp49fsn",
+        "ts": "30.08.2022 08:04:31 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/chsf_fr.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "CcZwzmJObnllfPLb631894526d239"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/CcZwzmJObnllfPLb631894526d239",
+        "ts": "07.09.2022 13:41:50 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/qsi-q3_de.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "pBI4qxYrgfRwnYPN63d679e4254be"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/pBI4qxYrgfRwnYPN63d679e4254be",
+        "ts": "29.01.2023 13:50:26 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/continental_com.json",
+        "addr": [
+            "11_Partikelmonitoring",
+            "Luftsauberkeit_Auswertung",
+            "180622_004_rl_nr00109_chn0007_eew",
+            "31_ProductDevelopment",
+            "02_MP_QualityAssurance",
+            "Capabilit\u00e9_equipements",
+            "1103_Paletka_vytvrzen\u00ed",
+            "Interior_Innovation_Vehicle",
+            "140415_Documentation_Test_Strategy_Safety_MY16"
+        ],
+        "content": "Following up on our message from yesterday, we are still in the process of verifying information. In order to prove that you hold the actual data and not just a list of files, please can you provide the following files as proof of data held:  I:\\continental2\\upload3\\did01447\\040_QAC_Cleanliness\\11_Partikelmonitoring\\02_Luftsauberkeit\\01_Monitoring\\Arbeits-Sheet-Luftsauberkeit_Auswertung Q2 2022 und Sondermessungen.xlsx,  H:\\continental\\upload4_c2\\didr1618\\MMA_Fahrversuch\\06_NVH-DL_Sommer_2022\\Daten_NVH-DL_Block1\\ATF_10\\180622_004\\EKB_Data\\EEW\\180622_004_rl_nr00109_chn0007_eew.wav,  H:\\continental\\upload4_c2\\didf3403\\Common\\Projects\\JR-Jeff Ross\\Instrumentation Master Database\\Archive\\Master Database Allentare Fixes March 2016.xlsx,  H:\\continental\\upload4_c2\\didb3040\\MCAD\\ptc\\Help\\Creo3\\help\\creo_help_pma\\italian\\pma\\rendering\\To_Open_a_Room_File.html,  I:\\continental2\\upload3\\hpfs002.tiretech.contiwan.com\\HPG-Orga\\GCF_TS\\PROJEKTE\\CT-Mexikana\\!Erweiterung 6\\CE\\Einbauerkl\u00e4rung Elektrotechnik Konwima + Kernsetzer T\u00fcrkei 2110791.pdf,  E:\\continental3\\upload_c2\\did43391\\31_ProductDevelopment\\40_Software\\20_Development\\BOT\\CPC4_V4_16\\pvcs\\config\\BS_Common_src.arl,  F:\\continental\\upload4\\did77091\\PROJETS\\Radio\\RD45\\07_MP\\02_MP_QualityAssurance\\210-Capabilit\u00e9_equipements\\Bizerte\\Inspection optique\\repetabilit\u00e9 vision SICKconnecteur MOST ilot 1 RD45 BCL tiroir droite.xls,  E:\\continental3\\upload_c2\\did43391\\99_Workuser\\Satvanyi\\Boot_v04_16_with Source Address 0x32\\config\\BS_Appl_src.arl,  F:\\continental\\upload4\\didb3019\\Konstrukce_Archiv\\P-pomocne\\P1-1103_Paletka_vytvrzen\u00ed\\Data\\(5) Pojistka_v\u00fdkres.idw,  I:\\continental2\\upload3\\did35017\\Interior_Innovation_Vehicle\\03_Development\\05_Hardware\\03_Parts_Components\\14_HMI_PC\\02_OS\\Image_WINXPembed\\2_Anpassungen-Tools\\app\\DemoFPK\\DemoFPK\\msgina.dll,  F:\\continental\\upload4\\didb3020\\Neplatne_NotValid\\Kvalita_Qualitaet\\Statistika\\Brandys\\KS\\Vn-Auswertung\\2002\\11_2002\\VDO\\Colorado\\VnPlov\u00e1kSest-VDO.xls,  E:\\continental3\\upload_c2\\did01155\\pua\\01_Operations Controlling\\2022\\01_Actual\\01 Reporting\\00_general dashboard,  E:\\continental3\\upload_c2\\did02299\\TM_community_RBG\\140415_Documentation_Test_Strategy_Safety_MY16,  F:\\continental\\upload\\10Werkstoffe\\CR\\ROHSTOFF\\CC\\03\\58\\02 VULCAN 5H (Cabot, Botlek, NET)\\2 - Specification, TDS, CoA",
+        "ts": "27.09.2022 17:28:58 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/continental_com.json",
+        "addr": [
+            "lockbitapt72iw55njgnqpymggskg5yp75ry7rirtdg4m7i42artsbqd",
+            "ifdIXrXSkuP2S395636290a09365a"
+        ],
+        "content": "http://lockbitapt72iw55njgnqpymggskg5yp75ry7rirtdg4m7i42artsbqd.onion/post/ifdIXrXSkuP2S395636290a09365a",
+        "ts": "03.11.2022 00:15:30 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/colonialgeneral_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "8woUZkWE9Q5YsQ8jBLzyzMxBNpKPmDe2IU8g8eVSM4E"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/_2oTnkjYde#8woUZkWE9Q5YsQ8jBLzyzMxBNpKPmDe2IU8g8eVSM4E=",
+        "ts": "23.11.2022 20:23:15 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/genusplc_com.json",
+        "addr": [
+            "2568256782468248428245724582452457245"
+        ],
+        "content": "https://temp.sh/XcaBs/genus.7z 2568256782468248428245724582452457245",
+        "ts": "29.06.2022 19:09:39 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/genusplc_com.json",
+        "addr": [
+            "bc1qh98g7cu0wnrf7awuqyjjs8uzc0sx7knp4d78kj"
+        ],
+        "content": "Though the amount you have offered is far away from our demanded amount, we can provide you a 25% discount as a goodwill gesture. 3750000$ for tool and data. BTC wallet for payment: bc1qh98g7cu0wnrf7awuqyjjs8uzc0sx7knp4d78kj.",
+        "ts": "12.07.2022 09:23:09 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/genusplc_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "UH9CN38uu4tIdmMe62d0116b7c5f8"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/UH9CN38uu4tIdmMe62d0116b7c5f8",
+        "ts": "14.07.2022 12:57:54 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/entrust_com.json",
+        "addr": [
+            "8978724368901249897827902878412"
+        ],
+        "content": "password 8978724368901249897827902878412",
+        "ts": "29.06.2022 19:06:29 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "dpGGTXwJUYMy8cTW63002f8b14b9c"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/dpGGTXwJUYMy8cTW63002f8b14b9c",
+        "ts": "01.09.2022 21:32:46 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "lockbitapt2yfbt7lchxejug47kmqvqqxvvjpqkmevv4l3azl3gy6pyd"
+        ],
+        "content": "http://lockbitapt2yfbt7lchxejug47kmqvqqxvvjpqkmevv4l3azl3gy6pyd.onion/",
+        "ts": "01.09.2022 21:54:55 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "lockbitapt34kvrip6xojylohhxrwsvpzdffgs5z4pbbsywnzsbdguqd"
+        ],
+        "content": "http://lockbitapt34kvrip6xojylohhxrwsvpzdffgs5z4pbbsywnzsbdguqd.onion/",
+        "ts": "01.09.2022 21:55:01 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "lockbitapt5x4zkjbcqmz6frdhecqqgadevyiwqxukksspnlidyvd7qd"
+        ],
+        "content": "http://lockbitapt5x4zkjbcqmz6frdhecqqgadevyiwqxukksspnlidyvd7qd.onion/",
+        "ts": "01.09.2022 21:55:07 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "lockbitaptc2iq4atewz2ise62q63wfktyrl4qtwuk5qax262kgtzjqd"
+        ],
+        "content": "http://lockbitaptc2iq4atewz2ise62q63wfktyrl4qtwuk5qax262kgtzjqd.onion/",
+        "ts": "01.09.2022 21:55:15 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "IkGuYqjqKZ5KB0nV63153472ed56e"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/IkGuYqjqKZ5KB0nV63153472ed56e",
+        "ts": "04.09.2022 23:32:14 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd"
+        ],
+        "content": "bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd bitcoin wallet",
+        "ts": "04.09.2022 23:35:11 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd"
+        ],
+        "content": "bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd bitcoin wallet to extend the timer by 1 day",
+        "ts": "05.09.2022 17:45:55 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd"
+        ],
+        "content": "Ok my boss agrees to 1 million, only if you send it today, here is the bitcoin wallet, bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd",
+        "ts": "06.09.2022 15:42:00 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd"
+        ],
+        "content": "Yes. You should wait.  We receive the decryptor along with support.  Wallet is confirmed as bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd ",
+        "ts": "06.09.2022 23:53:47 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "5cb062a9833428b118121b987099cc28"
+        ],
+        "content": "Windows 11 , MD5 hash of LBB_Decryptor.exe: 5cb062a9833428b118121b987099cc28",
+        "ts": "07.09.2022 23:25:28 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "decrypt_tool_fail_log"
+        ],
+        "content": "File: [decrypt_tool_fail_log.txt]",
+        "ts": "08.09.2022 19:58:19 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/tapcocu_org.json",
+        "addr": [
+            "bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd"
+        ],
+        "content": "bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd",
+        "ts": "13.09.2022 03:05:08 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/gocontec_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "KeLYCg94vg15mVB8luf3ze"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/0qK6DWBg3K#v/KeLYCg94vg15mVB8luf3ze+CN71QoIK6qwFdJ4Chw=",
+        "ts": "21.03.2023 19:59:44 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/gocontec_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "JrqwKtlakpd7MSjN645b448fb2678"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/JrqwKtlakpd7MSjN645b448fb2678",
+        "ts": "10.05.2023 07:57:50 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/myerspower_com.json",
+        "addr": [
+            "lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad",
+            "lNxFt9KkQR6blBzgFQ0GUUxKSbQo6SQJf8xN8yYHqps"
+        ],
+        "content": "http://lockbitfile2tcudkcqqt2ve6btssyvqwlizbpv5vz337lslmhff2uad.onion/r/2oqRhBeCMe#lNxFt9KkQR6blBzgFQ0GUUxKSbQo6SQJf8xN8yYHqps=",
+        "ts": "25.01.2023 15:35:07 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/myerspower_com.json",
+        "addr": [
+            "lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid",
+            "1VV81qZWUW7DRFlvRRQAjhWZJJiBp"
+        ],
+        "content": "http://lockbitfilzhrvt6eya2lvnp7te4iifzmwybendqclgujqbzu3k4gaid.onion/r/ra7EVq5naF#1VV81qZWUW7DRFlvRRQAjhWZJJiBp/Bsfxuc+90gRR4=",
+        "ts": "26.01.2023 21:27:41 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/myerspower_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "np4U8qdHNfB9QQT363ebf44bea050"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/np4U8qdHNfB9QQT363ebf44bea050",
+        "ts": "15.02.2023 12:11:12 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "EFDD05527F449763F18FB02B2C21837D"
+        ],
+        "content": "About 15 servers. How much are they? EFDD05527F449763F18FB02B2C21837D ",
+        "ts": "28.07.2022 00:44:31 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/",
+        "ts": "28.07.2022 10:54:29 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "lockbitsupuhswh4izvoucoxsbnotkmgq6durg7kficg6u33zfvq3oyd"
+        ],
+        "content": "Let's continue the conversation here http://lockbitsupuhswh4izvoucoxsbnotkmgq6durg7kficg6u33zfvq3oyd.onion/",
+        "ts": "09.08.2022 10:21:50 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "lockbitsupuhswh4izvoucoxsbnotkmgq6durg7kficg6u33zfvq3oyd"
+        ],
+        "content": "Let's continue the conversation here http://lockbitsupuhswh4izvoucoxsbnotkmgq6durg7kficg6u33zfvq3oyd.onion/",
+        "ts": "09.08.2022 10:53:31 UTC",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "lockbit7z2jwcskxpbokpemdxmltipntwlkmidcll2qirbu7ykg46eyd"
+        ],
+        "content": "http://lockbit7z2jwcskxpbokpemdxmltipntwlkmidcll2qirbu7ykg46eyd.onion/",
+        "ts": "09.08.2022 15:20:03 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead",
+            "L107zTa4UccNfDp562d695f5bdbf0"
+        ],
+        "content": "http://lockbitapt2d73krlbewgv27tquljgxr33xbwwsp6rkyieto7u4ncead.onion/post/L107zTa4UccNfDp562d695f5bdbf0",
+        "ts": "09.08.2022 15:21:25 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "bc1qnhgmuz5kdjn5rqjhayn9n8e8lvumjjpnnjdczz"
+        ],
+        "content": "If you want to stop publishing, make a payment of $13,500,000 to this bitcoin wallet bc1qnhgmuz5kdjn5rqjhayn9n8e8lvumjjpnnjdczz",
+        "ts": "19.08.2022 03:24:09 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "735CE278DEF3F2F130C32518DD8D63CA"
+        ],
+        "content": "File: [DECRYPTOR(LB BLACK) [735CE278DEF3F2F130C32518DD8D63CA].zip]",
+        "ts": "26.08.2022 14:06:27 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "lockbitaptc2iq4atewz2ise62q63wfktyrl4qtwuk5qax262kgtzjqd",
+            "dpGGTXwJUYMy8cTW63002f8b14b9c"
+        ],
+        "content": "http://lockbitaptc2iq4atewz2ise62q63wfktyrl4qtwuk5qax262kgtzjqd.onion/post/dpGGTXwJUYMy8cTW63002f8b14b9c",
+        "ts": "28.08.2022 02:10:14 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/lockbit3.0/samyang_com.json",
+        "addr": [
+            "lockbitaptc2iq4atewz2ise62q63wfktyrl4qtwuk5qax262kgtzjqd",
+            "YuaHw5WwiDNtpIgU63001d322ed54"
+        ],
+        "content": "http://lockbitaptc2iq4atewz2ise62q63wfktyrl4qtwuk5qax262kgtzjqd.onion/post/YuaHw5WwiDNtpIgU63001d322ed54",
+        "ts": "28.08.2022 02:12:25 UTC",
+        "sender": "LockBit 3.0"
+    },
+    {
+        "file": "./Ransomchats/REvil/20201104.json",
+        "addr": [
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd"
+        ],
+        "content": "http://dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion/",
+        "ts": "15 days ago",
+        "sender": "REvil"
+    },
+    {
+        "file": "./Ransomchats/REvil/20201104.json",
+        "addr": [
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd"
+        ],
+        "content": "http://dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion/posts/[redacted]?s=[redacted]",
+        "ts": "13 days ago",
+        "sender": "REvil"
+    },
+    {
+        "file": "./Ransomchats/REvil/20210407.json",
+        "addr": [
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd"
+        ],
+        "content": "Hello! You data is ready to be published. You can press the link and \nsee what we've got. It's just an example of what we have. The full blog \nwill be published after three days.\nhttp://dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion/posts/[redacted]?s=[redacted]",
+        "ts": "21 hours ago",
+        "sender": "REvil"
+    },
+    {
+        "file": "./Ransomchats/REvil/20210329.json",
+        "addr": [
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd"
+        ],
+        "content": "http://dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion/posts/[redacted]?s=[redacted]",
+        "ts": "3 days ago",
+        "sender": "REvil"
+    },
+    {
+        "file": "./Ransomchats/REvil/20210603.json",
+        "addr": [
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd"
+        ],
+        "content": "So that you understand what data we have\n\nhttp://dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion/posts/[redacted]?s=[redacted]",
+        "ts": "13 days ago",
+        "sender": "REvil"
+    },
+    {
+        "file": "./Ransomchats/REvil/20201126.json",
+        "addr": [
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd",
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd"
+        ],
+        "content": "A link to our blog where you can check out the leaks of other companies that didn\u2019t make the deal:\nhttp://dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion\n\nI also recommend that you familiarize yourself with this material in order to avoid mistakes:\nhttp://dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion/posts/[redacted]",
+        "ts": "1 day ago",
+        "sender": "REvil"
+    },
+    {
+        "file": "./Ransomchats/REvil/20210413.json",
+        "addr": [
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd"
+        ],
+        "content": "http://dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion/posts/[redacted]?s=[redacted]\n (Use TOR browser)\nThis is just a small part of what is being prepared for publication.\nAt the moment, this blog is only visible to you.\nWe hope your boss is ready to resolve this issue soon.",
+        "ts": "7 days ago",
+        "sender": "REvil"
+    },
+    {
+        "file": "./Ransomchats/REvil/20210413.json",
+        "addr": [
+            "dnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd"
+        ],
+        "content": "After this timer expires, the data will be published in the blog and transmitted to the media.\n\ndnpscnbaix6nkwvystl3yxglz7nteicqrou3t75tpcc5532cztc46qyd.onion/posts/[redacted]?s=[redacted] (Use TOR browser)",
+        "ts": "5 days ago",
+        "sender": "REvil"
+    },
+    {
+        "file": "./Ransomchats/Hive/20211113.json",
+        "addr": [
+            "12baa6c83e6f8b059e7f14cb67bdad4e917b90bc8a139b5379a4b42a0c92a6be"
+        ],
+        "content": "https://www.virustotal.com/gui/file/12baa6c83e6f8b059e7f14cb67bdad4e917b90bc8a139b5379a4b42a0c92a6be?nocache=1",
+        "ts": "14 November 2021 09:57",
+        "sender": "Hive"
+    },
+    {
+        "file": "./Ransomchats/Hive/20211102.json",
+        "addr": [
+            "hiveleakdbtnp76ulyhi52eag6c6tyc3xw7ez7iqy6wc34gd2nekazyd"
+        ],
+        "content": "If you are willing to cooperate, I will give you some files to confirm, but it does not matter, as it is silly to think that we have not downloaded anything when big money is being decided. You can read public news and our publications to be sure of our words http://hiveleakdbtnp76ulyhi52eag6c6tyc3xw7ez7iqy6wc34gd2nekazyd.onion/",
+        "ts": "5 November 2021 19:06",
+        "sender": "Hive"
+    },
+    {
+        "file": "./Ransomchats/Hive/20211026.json",
+        "addr": [
+            "4igKANBkvldLbBKaHpLIOSo"
+        ],
+        "content": "Yes, and then upload encrypted files which contain 4igKANBkvldLbBKaHpLIOSo-[redacted]*.[redacted]",
+        "ts": "2021-11-05 19:03",
+        "sender": "Hive"
+    },
+    {
+        "file": "./Ransomchats/Conti/20211108.json",
+        "addr": [
+            "continewsnv5otx5kaoje7krkto2qbu3gtqef22mnr7eaxw3y6ncz3ad"
+        ],
+        "content": "http://continewsnv5otx5kaoje7krkto2qbu3gtqef22mnr7eaxw3y6ncz3ad.onion/[redacted]",
+        "ts": "09/11/2021, 18:40:25",
+        "sender": "Conti"
+    },
+    {
+        "file": "./Ransomchats/Conti/20211108.json",
+        "addr": [
+            "continewsnv5otx5kaoje7krkto2qbu3gtqef22mnr7eaxw3y6ncz3ad"
+        ],
+        "content": "http://continewsnv5otx5kaoje7krkto2qbu3gtqef22mnr7eaxw3y6ncz3ad.onion/[redacted]",
+        "ts": "09/11/2021, 20:24:45",
+        "sender": "Conti"
+    },
+    {
+        "file": "./Ransomchats/Conti/20211217.json",
+        "addr": [
+            "Template_OWASPv4_Checklist"
+        ],
+        "content": "I request two files name that mention below\n[redacted] Assessment.docx\nTemplate_OWASPv4_Checklist.xlsx\nshow me if you can recovery the file",
+        "ts": "12/17/2021, 3:37:45 AM",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/Conti/20211217.json",
+        "addr": [
+            "Template_OWASPv4_Checklist"
+        ],
+        "content": "Template_OWASPv4_Checklist.xlsx.[redacted] [ 408.02 KB ]",
+        "ts": "12/17/2021, 3:39:15 AM",
+        "sender": "Victim"
+    },
+    {
+        "file": "./Ransomchats/Conti/20211217.json",
+        "addr": [
+            "Template_OWASPv4_Checklist"
+        ],
+        "content": "Template_OWASPv4_Checklist.xlsx [ 407.50 KB ]",
+        "ts": "12/17/2021, 8:50:29 AM",
+        "sender": "Conti"
+    },
+    {
+        "file": "./Ransomchats/Conti/20210513.json",
+        "addr": [
+            "continewsnv5otx5kaoje7krkto2qbu3gtqef22mnr7eaxw3y6ncz3ad"
+        ],
+        "content": "http://continewsnv5otx5kaoje7krkto2qbu3gtqef22mnr7eaxw3y6ncz3ad.onion/",
+        "ts": "5/20/2021, 11:20:31 AM",
+        "sender": "Conti"
+    },
+    {
+        "file": "./Ransomchats/Conti/20210315.json",
+        "addr": [
+            "TransfertsWeb7DerniersJours_20201220",
+            "TransfertsWeb7DerniersJours_20201213"
+        ],
+        "content": "can you see if you have these files: A) [redacted] server - \"TransfertsWeb7DerniersJours_20201220\" and \"TransfertsWeb7DerniersJours_20201213\"; and B)  vRaym-DB - \"templog.ldf\"",
+        "ts": "3/21/2021, 12:37:01 PM",
+        "sender": "Victim"
+    }
+]

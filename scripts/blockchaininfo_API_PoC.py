@@ -53,10 +53,22 @@ def main():
         addr_data = api.get_address(addr_hash)
         pprint(f'Input balance: {addr_data.get("final_balance")}₿')
 
-    edges_count = len(tx_data.get("inputs")) == 1 and len(tx_data.get("out")) == 2
+    # PoC conditions
+    has_one_I_and_two_O = (
+        len(tx_data.get("inputs")) == 1 and len(tx_data.get("out")) == 2
+    )
+    out_value_threshold = 5 * 10**8  # 5 BTC
+    is_one_O_higher = (
+        tx_data.get("out")[0].get("value")
+        > tx_data.get("out")[1].get("value") + out_value_threshold
+    ) or (
+        tx_data.get("out")[1].get("value")
+        > tx_data.get("out")[0].get("value") + out_value_threshold
+    )
 
-    if all([edges_count]):
-        print("Ok")
+    # Check if conditions are met
+    if all([has_one_I_and_two_O, is_one_O_higher]):
+        print("Conditions are met.")
 
 
 if __name__ == "__main__":

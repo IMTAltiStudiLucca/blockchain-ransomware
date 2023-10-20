@@ -54,11 +54,15 @@ def main():
         pprint(f'Input balance: {addr_data.get("final_balance")}₿')
 
     # PoC conditions
-    has_one_I_and_two_O = (
+
+    # Transaction has one input and two outputs
+    has_TX_one_I_and_two_O = (
         len(tx_data.get("inputs")) == 1 and len(tx_data.get("out")) == 2
     )
+
+    # Transaction with two outputs has one output greater than the other plus a threshold
     out_value_threshold = 5 * 10**8  # 5 BTC
-    is_one_O_higher = (
+    has_TX_one_O_higher = (
         tx_data.get("out")[0].get("value")
         > tx_data.get("out")[1].get("value") + out_value_threshold
     ) or (
@@ -66,8 +70,17 @@ def main():
         > tx_data.get("out")[0].get("value") + out_value_threshold
     )
 
+    # Address is "disposable"
+    # TODO: Refine condition.
+    is_addr_disposable = (
+        api.get_address(tx_data.get("inputs")[0].get("prev_out").get("addr")).get(
+            "final_balance"
+        )
+        == 0
+    )
+
     # Check if conditions are met
-    if all([has_one_I_and_two_O, is_one_O_higher]):
+    if all([has_TX_one_I_and_two_O, has_TX_one_O_higher, is_addr_disposable]):
         print("Conditions are met.")
 
 

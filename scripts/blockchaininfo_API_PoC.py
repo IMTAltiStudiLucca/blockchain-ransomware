@@ -57,8 +57,13 @@ def main():
         len(tx_data.get("inputs")) == 1 and len(tx_data.get("out")) == 2
     )
 
+    # Normalized outputs similar to a 'train' value
+    if len(tx_data.get("out")) >= 2:
+        out0, out1 = tx_data.get("out")[0].get("value"), tx_data.get("out")[1].get("value")
+        norm_delta = max(out0, out1) / (out0 + out1)
+        z_score = (norm_delta - 0.9821) / 0.0356
     # Transaction with two outputs has one output greater than the other plus a threshold
-    out_value_threshold = 5 * 10**8  # 5 BTC
+    """ out_value_threshold = 5 * 10**8  # 5 BTC
     has_TX_one_O_higher = (
         (
             tx_data.get("out")[0].get("value")
@@ -67,7 +72,7 @@ def main():
             tx_data.get("out")[1].get("value")
             > tx_data.get("out")[0].get("value") + out_value_threshold
         )
-    ) if len(tx_data.get("out")) >= 2 else False
+    ) if len(tx_data.get("out")) >= 2 else False """
 
     # Address is "disposable"
     # TODO: Refine condition.

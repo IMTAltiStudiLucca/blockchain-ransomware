@@ -58,6 +58,9 @@ class BlockchainDataAPI:
 
 class StrategyChecker:
     api = BlockchainDataAPI()
+    
+    MEAN_NORM_RATIO = 0.9821
+    DEV_NORM_RATIO = 0.0356
 
     @staticmethod
     def _is_address_disposable(addr_hash):
@@ -94,21 +97,23 @@ class StrategyChecker:
         """
         return len(tx_data.get("inputs")) == 1 and len(tx_data.get("out")) == 2
 
-    # Normalized outputs similar to a 'train' value
-    if len(tx_data.get("out")) >= 2:
+    @staticmethod
+    def _has_tx_one_output_higher_than_other(tx_data, threshold=None):
+        """
+        Checks if a transaction has one output significantly higher than the other.
+        :param tx_data: JSON representation of the transaction data.
+        :param threshold: The threshold value for considering an output as significantly higher (default: None).
+            If ``None``, ``DEV_NORM_RATIO`` is used.
+        :return: True if the condition is met, False otherwise.
+        """
+        if len(tx_data.get("out")) < 2:
+            return False
+        
+        threshold = threshold or StrategyChecker.DEV_NORM_RATIO # If threshold is None, use DEV_NORM_RATIO 
         out0, out1 = tx_data.get("out")[0].get("value"), tx_data.get("out")[1].get("value")
-        norm_delta = max(out0, out1) / (out0 + out1)
-        z_score = (norm_delta - 0.9821) / 0.0356
-    # Transaction with two outputs has one output greater than the other plus a threshold
-    """ out_value_threshold = 5 * 10**8  # 5 BTC
-    has_TX_one_O_higher = (
-        (
-            tx_data.get("out")[0].get("value")
-            > tx_data.get("out")[1].get("value") + threshold
-            or tx_data.get("out")[1].get("value")
-            > tx_data.get("out")[0].get("value") + threshold
-        )
-    ) if len(tx_data.get("out")) >= 2 else False """
+        norm_delta = max(out0, out1) / (out0 + out1) # Normalized ratio between the 2 outputs
+        z_score = (norm_delta - StrategyChecker.MEAN_NORM_RATIO) / StrategyChecker.DEV_NORM_RATIO
+        return z_score <= threshold
 
     @staticmethod
     def strategy_1(tx_hash):
@@ -124,7 +129,7 @@ class StrategyChecker:
         addr_hash = tx_data.get("inputs")[0].get("prev_out").get("addr")
         return all(
             [
-                StrategyChecker._has_tx_one_output_higher_than_other(tx_data),
+                StrategyChecker._has_tx_one_output_higher_than_other(tx_data, threshold=0.4),
                 StrategyChecker._is_address_disposable(addr_hash),
                 # StrategyChecker._is_address_from_tax_haven(addr_hash),    # TODO: Uncomment this condition once it is implemented.
             ]

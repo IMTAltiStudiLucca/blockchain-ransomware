@@ -112,9 +112,13 @@ class StrategyChecker:
         )
 
     @staticmethod
-    def strategy_1(tx_hash):
+    def lazy_peel_chain_detection_strategy(tx_hash):
         """
-        Implements Strategy 1 to check if a transaction meets specific conditions.
+        Implements the Lazy Peel Chain Detection Strategy to check if a transaction meets specific conditions.
+
+        This strategy is typically employed immediately after the ransom collection, allowing the dilution of transactions
+        over a longer period to avoid suspicion.
+
         :param tx_hash: The hash of the transaction to check.
         :return: True if all conditions are met, False otherwise.
         """
@@ -137,15 +141,17 @@ def main():
     tx_hash_evil = "0ed06d5b56f6ad8501fd336f7c78c9b66763201b2f152424404aa8d12787d2b7"
     tx_hash_good = "c996eaea0be0a848fa9c2587ae099a5b6822e239cc1c586bb289d166f8c0ecaa"
 
-    if StrategyChecker.strategy_1(tx_hash_evil):
-        print("Strategy 1 is met on tx_hash_evil. (EXPECTED)")
+    if StrategyChecker.lazy_peel_chain_detection_strategy(tx_hash_evil):
+        print("Lazy Peel Chain Detection Strategy is met on tx_hash_evil. (EXPECTED)")
     else:
-        print("Strategy 1 is NOT met on tx_hash_evil.")
+        print("Lazy Peel Chain Detection Strategy is NOT met on tx_hash_evil.")
 
-    if StrategyChecker.strategy_1(tx_hash_good):
-        print("Strategy 1 is met on tx_hash_good.")
+    if StrategyChecker.lazy_peel_chain_detection_strategy(tx_hash_good):
+        print("Lazy Peel Chain Detection Strategy is met on tx_hash_good.")
     else:
-        print("Strategy 1 is NOT met on tx_hash_good. (EXPECTED)")
+        print(
+            "Lazy Peel Chain Detection Strategy is NOT met on tx_hash_good. (EXPECTED)"
+        )
 
 
 if __name__ == "__main__":

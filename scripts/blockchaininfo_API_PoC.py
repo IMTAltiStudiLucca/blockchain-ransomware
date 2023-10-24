@@ -111,8 +111,8 @@ class StrategyChecker:
         
         threshold = threshold or StrategyChecker.DEV_NORM_RATIO # If threshold is None, use DEV_NORM_RATIO 
         out0, out1 = tx_data.get("out")[0].get("value"), tx_data.get("out")[1].get("value")
-        norm_delta = max(out0, out1) / (out0 + out1) # Normalized ratio between the 2 outputs
-        z_score = (norm_delta - StrategyChecker.MEAN_NORM_RATIO) / StrategyChecker.DEV_NORM_RATIO
+        norm_ratio = max(out0, out1) / (out0 + out1) # Normalized ratio between the 2 outputs
+        z_score = (norm_ratio - StrategyChecker.MEAN_NORM_RATIO) / StrategyChecker.DEV_NORM_RATIO
         return z_score <= threshold
 
     @staticmethod

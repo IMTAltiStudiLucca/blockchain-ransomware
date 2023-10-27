@@ -61,16 +61,28 @@ class StrategyChecker:
     
     MEAN_NORM_RATIO = 0.9821
     DEV_NORM_RATIO = 0.0356
+    
+    # TODO: patience mechanism
 
     @staticmethod
-    def _is_address_disposable(addr_hash):
+    def _has_tx_disposable_addresses(tx_data):
         """
         Checks whether the address associated with a transaction is disposable (final_balance == 0).
         :param tx_data: JSON representation of the transaction data.
-        :return: True if the address is disposable, False otherwise.
+        :return: True if the addresses are disposable, False otherwise.
         """
-        addr_data = StrategyChecker.api.get_address(addr_hash)
-        return addr_data.get("final_balance") == 0
+        if len(tx_data.get("inputs")) == 0 and len(tx_data.get("out")) == 0:
+            return False
+        
+        inputs = [i.get("prev_out").get("addr") for i in tx_data.get("inputs")]
+        outputs = [o.get("addr") for o in tx_data.get("out")]
+       
+        are_balances_zero = []
+        for addr in inputs + outputs:
+            addr_data = StrategyChecker.api.get_address(addr)
+            are_balances_zero.append(addr_data.get("final_balance") == 0)
+        
+        return all(are_balances_zero)
 
     @staticmethod
     def _is_address_from_tax_haven(addr_hash):
@@ -130,11 +142,10 @@ class StrategyChecker:
         if StrategyChecker._has_tx_one_input_and_two_outputs(tx_data) is False:
             return False
 
-        addr_hash = tx_data.get("inputs")[0].get("prev_out").get("addr")
         return all(
             [
                 StrategyChecker._has_tx_one_output_higher_than_other(tx_data, threshold=0.4),
-                StrategyChecker._is_address_disposable(addr_hash),
+                StrategyChecker._has_tx_disposable_addresses(tx_data),
                 # StrategyChecker._is_address_from_tax_haven(addr_hash),    # TODO: Uncomment this condition once it is implemented.
             ]
         )
@@ -143,7 +154,7 @@ class StrategyChecker:
 def main():
     # For testing purposes
     tx_hash_evil = "0ed06d5b56f6ad8501fd336f7c78c9b66763201b2f152424404aa8d12787d2b7"
-    tx_hash_good = "c996eaea0be0a848fa9c2587ae099a5b6822e239cc1c586bb289d166f8c0ecaa"
+    tx_hash_good = "5386fab4856ce51b2005aba341aa3c267504d783d19f812ffb398b0041d26037"
 
     if StrategyChecker.lazy_peel_chain_detection_strategy(tx_hash_evil):
         print("Lazy Peel Chain Detection Strategy is met on tx_hash_evil. (EXPECTED)")

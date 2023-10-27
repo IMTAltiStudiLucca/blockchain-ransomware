@@ -63,6 +63,8 @@ class StrategyChecker:
     DEV_NORM_RATIO = 0.0356
     
     # TODO: patience mechanism
+    # TODO: loop txs
+    # TODO: nlocktime check, stats regarding the block height (often is the previous one)
 
     @staticmethod
     def _has_tx_disposable_addresses(tx_data):
@@ -126,7 +128,16 @@ class StrategyChecker:
         norm_ratio = max(out0, out1) / (out0 + out1) # Normalized ratio between the 2 outputs
         z_score = (norm_ratio - StrategyChecker.MEAN_NORM_RATIO) / StrategyChecker.DEV_NORM_RATIO
         return z_score <= threshold
-
+    
+    @staticmethod
+    def _has_not_tx_locktime_zero(tx_data):
+        """
+        Check if a transaction has locktime different from 0.
+        :param tx_data: JSON representation of the transaction data.
+        :return: True if the condition is met, False otherwise.
+        """
+        return tx_data.get("lock_time") != 0
+        
     @staticmethod
     def lazy_peel_chain_detection_strategy(tx_hash):
         """
@@ -146,6 +157,7 @@ class StrategyChecker:
             [
                 StrategyChecker._has_tx_one_output_higher_than_other(tx_data, threshold=0.4),
                 StrategyChecker._has_tx_disposable_addresses(tx_data),
+                StrategyChecker._has_not_tx_locktime_zero(tx_data),
                 # StrategyChecker._is_address_from_tax_haven(addr_hash),    # TODO: Uncomment this condition once it is implemented.
             ]
         )
@@ -153,7 +165,8 @@ class StrategyChecker:
 
 def main():
     # For testing purposes
-    tx_hash_evil = "0ed06d5b56f6ad8501fd336f7c78c9b66763201b2f152424404aa8d12787d2b7"
+    # tx_hash_evil = "0ed06d5b56f6ad8501fd336f7c78c9b66763201b2f152424404aa8d12787d2b7"
+    tx_hash_evil = "7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f"
     tx_hash_good = "5386fab4856ce51b2005aba341aa3c267504d783d19f812ffb398b0041d26037"
 
     if StrategyChecker.lazy_peel_chain_detection_strategy(tx_hash_evil):

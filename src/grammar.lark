@@ -24,6 +24,9 @@ address_prop : address_expression
         | "Gaddr" INT address_prop 
         | "Faddr" INT address_prop
 
+//GCNOTE: may INT be negative? We only want positive numbers here
+
+
 // TODO gestire caso == HEX
 // TRANSACTION AND ADDRESS EXPRESSIONS
 transaction_expression : transaction_atom ">" transaction_atom 
@@ -100,6 +103,9 @@ address_attribute : "hash"
 
 // OTHERS
 HEX : ("_"|LETTER|DIGIT) ("_"|LETTER|DIGIT)*
+// GCNOTE: Letter may include, e.g., H, P, Q, ... but HEX codes only use A...F
+
+
 BOOL : "True" | "False"
 
 // DICT AND LIST DEFINITION

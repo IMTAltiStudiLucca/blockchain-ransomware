@@ -1,0 +1,129 @@
+?start: query
+    
+query : "From" node "Check" property
+
+node : "Transaction" id -> transaction
+        | "Address" id -> address
+
+id : HEX
+property : transaction_prop 
+        | address_prop
+
+// TRANSACTION AND ADDRESS PROPERTIES
+transaction_prop : transaction_expression 
+        | "not" transaction_prop 
+        | transaction_prop "and" transaction_prop 
+        | "Maxaddr" address_atom address_prop 
+        | "Gtrans" INT transaction_prop 
+        | "Ftrans" INT transaction_prop
+
+address_prop : address_expression 
+        | "not" address_prop 
+        | address_prop "and" address_prop 
+        | "Xtrans" transaction_prop 
+        | "Gaddr" INT address_prop 
+        | "Faddr" INT address_prop
+
+// TODO gestire caso == HEX
+// TRANSACTION AND ADDRESS EXPRESSIONS
+transaction_expression : transaction_atom ">" transaction_atom 
+        | transaction_atom "=" transaction_atom 
+        | transaction_atom "<" transaction_atom
+        | transaction_atom ">" NUMBER 
+        | transaction_atom "=" NUMBER
+        | transaction_atom "<" NUMBER 
+
+address_expression : address_atom ">" address_atom 
+        | address_atom "=" address_atom 
+        | address_atom "<" address_atom
+        | address_atom ">" NUMBER 
+        | address_atom "=" NUMBER
+        | address_atom "<" NUMBER 
+
+// TRANSACTION AND ADDRESS ATOMS
+transaction_atom : "Transaction." transaction_attribute 
+address_atom : "Address." address_attribute 
+
+// TRANSACTION AND ADDRESS ATTRIBUTES
+transaction_attribute : "hash" 
+        | "ver" 
+        | "vin_sz" 
+        | "vout_sz" 
+        | "size" 
+        | "weight" 
+        | "fee" 
+        | "relayed_by" 
+        | "lock_time" 
+        | "tx_index" 
+        | "double_spend" 
+        | "time" 
+        | "block_index" 
+        | "block_height" 
+        | "inputs" 
+        | "out"
+
+address_attribute : "hash" 
+        | "address" 
+        | "n_tx" 
+        | "n_unredeemed" 
+        | "total_received" 
+        | "total_sent" 
+        | "final_balance" 
+        | "txs"
+
+// ADDRESS JSON KEYS
+// hash : CNAME
+// address : HEX
+// n_tx : INT
+// n_unredeemed : INT
+// total_received : INT
+// total_sent : INT
+// final_balance : INT
+// txs : list
+
+// TRANSACTION JSON KEYS
+// ver : INT
+// vin_sz : INT
+// vout_sz : INT
+// size : INT
+// weight : INT
+// fee : INT
+// relayed_by : IP_ADDRESS
+// lock_time : INT
+// tx_index : INT
+// double_spend : BOOL
+// time : INT
+// block_index : INT
+// block_height : INT
+// inputs : list
+// out : list
+
+// OTHERS
+HEX : ("_"|LETTER|DIGIT) ("_"|LETTER|DIGIT)*
+BOOL : "True" | "False"
+
+// DICT AND LIST DEFINITION
+// value: dict
+//         | list
+//         | ESCAPED_STRING
+//         | NUMBER
+//         | BOOL 
+//         | "None"
+// 
+// list : "[" [value ("," value)*] "]"
+// 
+// dict : "{" [pair ("," pair)*] "}"
+// pair : ESCAPED_STRING ":" value
+
+// IP ADDRESS DEFINITION
+// IP_ADDRESS: OCTET "." OCTET "." OCTET "." OCTET
+// OCTET: DIGIT "0".."9" | "1" DIGIT "0".."9" | "2" ("0".."4") DIGIT | "25" ("0".."5")
+
+%import common.NUMBER
+%import common.ESCAPED_STRING
+%import common.LETTER
+%import common.DIGIT
+%import common.INT
+%import common.CNAME
+%import common.WS_INLINE
+%ignore WS_INLINE

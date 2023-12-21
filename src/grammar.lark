@@ -101,7 +101,11 @@ address_attribute_list : "txs"
 HEX : ("a".."f"|"A".."F"|DIGIT)+
 BOOL : "True" | "False"
 
-IP_ADDRESS: /(\d{1,3}\.){3}\d{1,3}/ // No validation
+IP_ADDRESS: OCTET "." OCTET "." OCTET "." OCTET
+OCTET: "25" "0".."5"  // 250-255
+      | "2" "0".."4" DIGIT  // 200-249
+      | "1" DIGIT DIGIT  // 100-199
+      | DIGIT DIGIT?
 
 // DICT AND LIST DEFINITION
 // value: dict

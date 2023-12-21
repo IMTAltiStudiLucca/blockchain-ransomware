@@ -10,30 +10,30 @@ property : transaction_prop
         | address_prop
 
 // TRANSACTION AND ADDRESS PROPERTIES
-transaction_prop : transaction_expression 
+transaction_prop : "(" transaction_prop ")"
+        | transaction_expression 
         | "not" transaction_prop 
         | transaction_prop "and" transaction_prop 
         | "Maxaddr" address_atom address_prop 
         | "Gtrans" INT transaction_prop 
         | "Ftrans" INT transaction_prop
 
-address_prop : address_expression 
+address_prop : "(" address_prop ")"
+        | address_expression 
         | "not" address_prop 
         | address_prop "and" address_prop 
         | "Xtrans" transaction_prop 
         | "Gaddr" INT address_prop 
         | "Faddr" INT address_prop
 
-//GCNOTE: may INT be negative? We only want positive numbers here
-
-
-// TODO gestire caso == HEX
+// TODO: find a better way to handle = HEX
 // TRANSACTION AND ADDRESS EXPRESSIONS
 transaction_expression : transaction_atom ">" transaction_atom 
         | transaction_atom "=" transaction_atom 
         | transaction_atom "<" transaction_atom
         | transaction_atom ">" NUMBER 
         | transaction_atom "=" NUMBER
+        | transaction_atom "=" "HEX" HEX
         | transaction_atom "<" NUMBER 
 
 address_expression : address_atom ">" address_atom 
@@ -41,6 +41,7 @@ address_expression : address_atom ">" address_atom
         | address_atom "<" address_atom
         | address_atom ">" NUMBER 
         | address_atom "=" NUMBER
+        | address_atom "=" "HEX" HEX
         | address_atom "<" NUMBER 
 
 // TRANSACTION AND ADDRESS ATOMS
@@ -102,11 +103,9 @@ address_attribute : "hash"
 // out : list
 
 // OTHERS
-HEX : ("_"|LETTER|DIGIT) ("_"|LETTER|DIGIT)*
-// GCNOTE: Letter may include, e.g., H, P, Q, ... but HEX codes only use A...F
+HEX : ("a".."f"|"A".."F"|DIGIT)+
 
-
-BOOL : "True" | "False"
+//BOOL : "True" | "False"
 
 // DICT AND LIST DEFINITION
 // value: dict

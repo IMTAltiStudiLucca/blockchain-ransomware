@@ -1,9 +1,46 @@
 from lark import Lark, Transformer, v_args
+from blockchaininfo_API_PoC import StrategyChecker
 
 
 @v_args(inline=True)
 class QueryTransformer(Transformer):
-    pass
+    # First element-> Transaction attribute, second element -> Address attribute
+    HEX_ATTRIBUTES = [['hash'], ['hash', 'address']] 
+    INT_ATTRIBUTES = [['ver', 'vin_sz', 'vout_sz', 'size', 'weight', 'fee', 'lock_time', 'tx_index',
+                       'time', 'block_index', 'block_height'],
+                      ['n_tx', 'n_unredeemed', 'total_received', 'total_sent', 'final_balance']]
+    BOOL_ATTRIBUTES = [['double_spend'], []]
+    IP_ATTRIBUTES = [['relayed_by'], []]
+    LIST_ATTRIBUTES = [['inputs', 'out'], ['txs']]
+    
+    
+    def node_transaction(self, var):
+        tx_hash = var.children[0].value
+        self.tx_data = StrategyChecker.api.get_transaction(tx_hash)
+        
+    def node_address(self, var):
+        addr_hash = var.children[0].value
+        self.addr_data = StrategyChecker.api.get_address(addr_hash)
+
+    def transaction_expression(self, *args):
+        print(args)
+        input()
+
+    def transaction_atom(self, attribute):
+        if not any(attribute in attr_list for attr_list in [
+            self.HEX_ATTRIBUTES[0], self.INT_ATTRIBUTES[0], self.BOOL_ATTRIBUTES[0], 
+            self.IP_ATTRIBUTES[0], self.LIST_ATTRIBUTES[0]]
+        ):
+            raise KeyError(f'{attribute} not found in valid transaction attributes')
+        return attribute
+    
+    def address_atom(self, attribute):
+        if not any(attribute in attr_list for attr_list in [
+            self.HEX_ATTRIBUTES[1], self.INT_ATTRIBUTES[1], self.BOOL_ATTRIBUTES[1], 
+            self.IP_ATTRIBUTES[1], self.LIST_ATTRIBUTES[1]]
+        ):
+            raise KeyError(f'{attribute} not found in valid address attributes')
+        return attribute
 
 
 with open("grammar.lark") as f:
@@ -21,4 +58,4 @@ test_queries = [
 ]
 for tq in test_queries:
     parsed_query = lark_parser.parse(tq)
-    print(parsed_query.pretty())
+    #print(parsed_query.pretty())

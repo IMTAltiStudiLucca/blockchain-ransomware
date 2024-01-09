@@ -2,8 +2,8 @@
     
 query : "From" node "Check" property
 
-node : "Transaction" id -> transaction
-        | "Address" id -> address
+node : "Transaction" id -> node_transaction
+        | "Address" id -> node_address
 
 id : HEX
 property : transaction_prop 
@@ -14,7 +14,7 @@ transaction_prop : "(" transaction_prop ")"
         | transaction_expression 
         | "not" transaction_prop 
         | transaction_prop "and" transaction_prop 
-        | "Maxaddr" address_atom_int address_prop 
+        | "Maxaddr" address_atom address_prop 
         | "Gtrans" INT transaction_prop 
         | "Ftrans" INT transaction_prop
 
@@ -28,74 +28,29 @@ address_prop : "(" address_prop ")"
 
 // TODO: find a better way to handle = HEX, = IP
 // TRANSACTION AND ADDRESS EXPRESSIONS
-transaction_expression : transaction_atom_int ">" transaction_atom_int 
-        | transaction_atom_int "=" transaction_atom_int 
-        | transaction_atom_int "<" transaction_atom_int
-        | transaction_atom_int ">" NUMBER 
-        | transaction_atom_int "=" NUMBER
-        | transaction_atom_int "<" NUMBER
-        | transaction_atom_hex "=" transaction_atom_hex
-        | transaction_atom_hex "=" "HEX" HEX
-        | "HEX" HEX "in" transaction_atom_list
-        | transaction_atom_ip "=" transaction_atom_ip
-        | transaction_atom_ip "=" "IP" IP_ADDRESS
-        | transaction_atom_bool "=" transaction_atom_bool
-        | transaction_atom_bool "=" BOOL
+transaction_expression : transaction_atom ">" transaction_atom 
+        | transaction_atom "=" transaction_atom 
+        | transaction_atom "<" transaction_atom
+        | transaction_atom ">" NUMBER 
+        | transaction_atom "=" NUMBER
+        | transaction_atom "<" NUMBER
+        | transaction_atom "=" "HEX" HEX
+        | "HEX" HEX "in" transaction_atom
+        | transaction_atom "=" "IP" IP_ADDRESS
+        | transaction_atom "=" BOOL
 
-address_expression : address_atom_int ">" address_atom_int 
-        | address_atom_int "=" address_atom_int 
-        | address_atom_int "<" address_atom_int
-        | address_atom_int ">" NUMBER 
-        | address_atom_int "=" NUMBER
-        | address_atom_int "<" NUMBER
-        | address_atom_hex "=" address_atom_hex
-        | address_atom_hex "=" "HEX" HEX
-        | "HEX" HEX "in" address_atom_list
+address_expression : address_atom ">" address_atom 
+        | address_atom "=" address_atom 
+        | address_atom "<" address_atom
+        | address_atom ">" NUMBER 
+        | address_atom "=" NUMBER
+        | address_atom "<" NUMBER
+        | address_atom "=" "HEX" HEX
+        | "HEX" HEX "in" address_atom
 
 // TRANSACTION AND ADDRESS ATOMS
-transaction_atom_bool : "Transaction." transaction_attribute_bool
-transaction_atom_hex : "Transaction." transaction_attribute_hex
-transaction_atom_int : "Transaction." transaction_attribute_int
-transaction_atom_list : "Transaction." transaction_attribute_list
-transaction_atom_ip : "Transaction." transaction_attribute_ip
-
-address_atom_hex : "Address." address_attribute_hex 
-address_atom_int : "Address." address_attribute_int 
-address_atom_list : "Address." address_attribute_list 
-
-// TRANSACTION AND ADDRESS ATTRIBUTES
-transaction_attribute_hex : "hash"
-
-transaction_attribute_int : "ver"
-        | "vin_sz"
-        | "vout_sz"
-        | "size"
-        | "weight"
-        | "fee"
-        | "lock_time"
-        | "tx_index"
-        | "time"
-        | "block_index"
-        | "block_height"
-
-transaction_attribute_bool : "double_spend"
-
-transaction_attribute_ip : "relayed_by"
-
-transaction_attribute_list : "inputs"
-        | "out"
-
-
-address_attribute_hex : "hash"
-        | "address"
-
-address_attribute_int : "n_tx"
-        | "n_unredeemed"
-        | "total_received"
-        | "total_sent"
-        | "final_balance"
-
-address_attribute_list : "txs"
+transaction_atom : "Transaction." CNAME
+address_atom : "Address." CNAME 
 
 // OTHERS
 HEX : ("a".."f"|"A".."F"|DIGIT)+
@@ -106,19 +61,6 @@ OCTET: "25" "0".."5"  // 250-255
       | "2" "0".."4" DIGIT  // 200-249
       | "1" DIGIT DIGIT  // 100-199
       | DIGIT DIGIT?
-
-// DICT AND LIST DEFINITION
-// value: dict
-//         | list
-//         | ESCAPED_STRING
-//         | NUMBER
-//         | BOOL 
-//         | "None"
-
-// list : "[" [value ("," value)*] "]"
-// 
-// dict : "{" [pair ("," pair)*] "}"
-// pair : ESCAPED_STRING ":" value
 
 %import common.NUMBER
 %import common.ESCAPED_STRING

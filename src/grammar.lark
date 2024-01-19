@@ -5,12 +5,12 @@ query : "From" node "Check" property
 node : "Transaction" id -> node_transaction
         | "Address" id -> node_address
 
-id : HEX
+id : HEX_EXT
 property : transaction_prop 
         | address_prop
 
 // TRANSACTION AND ADDRESS PROPERTIES
-transaction_prop : "(" transaction_prop ")"
+!transaction_prop : "(" transaction_prop ")"
         | transaction_expression 
         | "not" transaction_prop 
         | transaction_prop "and" transaction_prop 
@@ -18,7 +18,7 @@ transaction_prop : "(" transaction_prop ")"
         | "Gtrans" INT transaction_prop 
         | "Ftrans" INT transaction_prop
 
-address_prop : "(" address_prop ")"
+!address_prop : "(" address_prop ")"
         | address_expression 
         | "not" address_prop 
         | address_prop "and" address_prop 
@@ -26,10 +26,10 @@ address_prop : "(" address_prop ")"
         | "Gaddr" INT address_prop 
         | "Faddr" INT address_prop
 
-// TODO: find a better way to handle = HEX, = IP
 // TRANSACTION AND ADDRESS EXPRESSIONS
-transaction_expression : transaction_atom ">" transaction_atom 
-        | transaction_atom "=" transaction_atom 
+// TODO: remove transaction_atom OPERATOR transaction_atom if not needed
+!transaction_expression : transaction_atom ">" transaction_atom 
+        | transaction_atom "=" transaction_atom
         | transaction_atom "<" transaction_atom
         | transaction_atom ">" NUMBER 
         | transaction_atom "=" NUMBER
@@ -39,14 +39,14 @@ transaction_expression : transaction_atom ">" transaction_atom
         | transaction_atom "=" "IP" IP_ADDRESS
         | transaction_atom "=" BOOL
 
-address_expression : address_atom ">" address_atom 
+!address_expression : address_atom ">" address_atom 
         | address_atom "=" address_atom 
         | address_atom "<" address_atom
         | address_atom ">" NUMBER 
         | address_atom "=" NUMBER
         | address_atom "<" NUMBER
-        | address_atom "=" "HEX" HEX
-        | "HEX" HEX "in" address_atom
+        | address_atom "=" "HEX" HEX_EXT
+        | "HEX" HEX_EXT "in" address_atom
 
 // TRANSACTION AND ADDRESS ATOMS
 transaction_atom : "Transaction." CNAME
@@ -54,6 +54,7 @@ address_atom : "Address." CNAME
 
 // OTHERS
 HEX : ("a".."f"|"A".."F"|DIGIT)+
+HEX_EXT : ("a".."z"|"A".."Z"|DIGIT)+
 BOOL : "True" | "False"
 
 IP_ADDRESS: OCTET "." OCTET "." OCTET "." OCTET
@@ -63,8 +64,6 @@ OCTET: "25" "0".."5"  // 250-255
       | DIGIT DIGIT?
 
 %import common.NUMBER
-%import common.ESCAPED_STRING
-%import common.LETTER
 %import common.DIGIT
 %import common.INT
 %import common.CNAME

@@ -178,10 +178,40 @@ class QueryTransformer(Transformer):
         - Result of the property checker.
         """
         if len(args) == 1:
+            print('end recursion', args)
+            input()
             return args[0]
-        else: 
-            # TODO
+        elif args[0] == '(' and args[2] == ')':
+            print('()', args)
+            input()
+            return self._prop_checker(args[1], is_tx=is_tx)
+        elif args[1] == 'not':
+            print('not', args)
+            input()
+            return not self._prop_checker(args[1], is_tx=is_tx)
+        elif args[1] == 'and':
+            print('and', args)
+            input()
+            return self._prop_checker(args[0], is_tx=is_tx) and self._prop_checker(args[2], is_tx=is_tx)
+        elif args[0] == 'Maxaddr':
             return False
+        elif args[0] == 'Gtrans':
+            # TODO:
+            # for n in INT
+            # Pick the highest output -> address (based on highest output btc)
+            # address -> out tx (based on highest output btc)
+            # update self.tx_data
+            
+            for i in args[1]:
+                max_addr = self._find_highest_out_addr()
+                
+            return False
+        elif args[0] == 'Faddr':
+            return False   
+        elif args[0] == 'Xtrans':
+            return False 
+        else:
+            raise Exception      
     
     def _expression_checker(self, *args, is_tx):
         """
@@ -210,6 +240,15 @@ class QueryTransformer(Transformer):
             return data[tx_atom] > float(args[2].value)
         else:
             raise Exception
+        
+    def _find_highest_out_addr(self):
+        """
+        Find the address with the highest btc output from a txs
+        """
+        addrs = self.tx_data.get('out', [])
+        max_addr = max(addrs, key=lambda addr: addr.get('value', 0), default=None)
+        max_addr = max_addr.get('addr') if max_addr else None
+        return max_addr
 
 
 with open("grammar.lark") as f:
@@ -217,13 +256,14 @@ with open("grammar.lark") as f:
 
 # Test queries
 test_queries = [
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
-    "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 210) and (Transaction.size < 300)",
-    "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check (Xtrans Transaction.lock_time > 30) and (Faddr 5 Address.address = HEX 7a51a014)",
+    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 230 and Transaction.size < 280) and (Transaction.size < 300)",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
+    # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
+    # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check (Xtrans Transaction.lock_time > 30) and (Faddr 5 Address.address = HEX 7a51a014)",
 ]
     
 for tq in test_queries:

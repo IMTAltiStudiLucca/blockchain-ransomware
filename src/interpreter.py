@@ -1,5 +1,8 @@
+from pprint import pprint
 from lark import Lark, Transformer, v_args
+
 from blockchaininfo_API_PoC import StrategyChecker
+import test_addr, test_tx 
 
 
 @v_args(inline=True)
@@ -60,7 +63,7 @@ class QueryTransformer(Transformer):
         """
         tx_hash = var.children[0].value
         # self.tx_data = StrategyChecker.api.get_transaction(tx_hash)
-        self.tx_data = {'hash': '7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f', 'ver': 2, 'vin_sz': 1, 'vout_sz': 2, 'size': 225, 'weight': 573, 'fee': 2250, 'relayed_by': '0.0.0.0', 'lock_time': 755925, 'tx_index': 4494081061398666, 'double_spend': False, 'time': 1664289787, 'block_index': 755927, 'block_height': 755927, 'inputs': [{'sequence': 4294967293, 'witness': '0247304402205c60bbc5999064c598a9fddbd4405072c3c47e43e3c3e57eb9945904aac169ac02204d539422108b5256826fcd4fb5ebaa56dd18d702dc98f5eef4e7b4d18465fb6b0121036d40149dc2b06f6fc9cbf4665512f3bc732bb718899e9b09f05fb0ba50c8ac75', 'script': '', 'index': 0, 'prev_out': {'addr': 'bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd', 'n': 0, 'script': '00142739361422d26a00a1afc3ddbccf8515c7ae53c4', 'spending_outpoints': [{'n': 0, 'tx_index': 4494081061398666}], 'spent': True, 'tx_index': 6467674833564937, 'type': 0, 'value': 5310674450}}], 'out': [{'type': 0, 'spent': True, 'value': 310657500, 'spending_outpoints': [{'tx_index': 4801429243623573, 'n': 1}], 'n': 0, 'tx_index': 4494081061398666, 'script': '76a914cc83c8f42aaf2e514f216d82957c7c20f2bac21488ac', 'addr': '1KeNiiR3BZT8GPqQ61ihmvwRMsCQtcXNYC'}, {'type': 0, 'spent': True, 'value': 5000014700, 'spending_outpoints': [{'tx_index': 5648945386042604, 'n': 0}], 'n': 1, 'tx_index': 4494081061398666, 'script': '00141f7658ae84086c56c867ed435b3d83ca1b9bcc58', 'addr': 'bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40'}]}
+        self.tx_data = test_tx.txs[0]
         return self.tx_data['hash']
             
     def node_address(self, var):
@@ -75,7 +78,7 @@ class QueryTransformer(Transformer):
         """
         addr_hash = var.children[0].value
         # self.addr_data = StrategyChecker.api.get_address(addr_hash)
-        self.addr_data = {'hash160': '1f7658ae84086c56c867ed435b3d83ca1b9bcc58', 'address': 'bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40', 'n_tx': 2, 'n_unredeemed': 0, 'total_received': 5000014700, 'total_sent': 5000014700, 'final_balance': 0, 'txs': [{'hash': '23528e9e9335fa05eee083ba326abe7058c3b489962707204162a7b9b87c8da0', 'ver': 2, 'vin_sz': 1, 'vout_sz': 2, 'size': 225, 'weight': 573, 'fee': 2160, 'relayed_by': '0.0.0.0', 'lock_time': 756230, 'tx_index': 5648945386042604, 'double_spend': False, 'time': 1664467538, 'block_index': 756231, 'block_height': 756231, 'inputs': [{'sequence': 4294967293, 'witness': '02473044022001d4631f303dc1707519dbff8bb007671597cbfc8a5c269aceb5c0a1554d3ab7022069ace0d440f44440814482def422007a3c41cac8bb733643dcf1dc250dc5efec01210245004d845d8fa423f72013e56d565e76732c5516fe8138ba923aca94a67f47bf', 'script': '', 'index': 0, 'prev_out': {'addr': 'bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40', 'n': 1, 'script': '00141f7658ae84086c56c867ed435b3d83ca1b9bcc58', 'spending_outpoints': [{'n': 0, 'tx_index': 5648945386042604}], 'spent': True, 'tx_index': 4494081061398666, 'type': 0, 'value': 5000014700}}], 'out': [{'type': 0, 'spent': True, 'value': 518065, 'spending_outpoints': [{'tx_index': 1477375041610559, 'n': 76}], 'n': 0, 'tx_index': 5648945386042604, 'script': '76a91445b82486d54c81d60b14e520a8ab07744d04e4b988ac', 'addr': '17MeDhGCZiYJxuwoZGsC1FYpbqG83TwHxR'}, {'type': 0, 'spent': True, 'value': 4999494475, 'spending_outpoints': [{'tx_index': 6810901915633533, 'n': 0}], 'n': 1, 'tx_index': 5648945386042604, 'script': '0014548625a5c866889e02edd952becd356311fb6159', 'addr': 'bc1q2jrztfwgv6yfuqhdm9ftanf4vvglkc2ectdsz6'}], 'result': -5000014700, 'balance': 0}, {'hash': '7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f', 'ver': 2, 'vin_sz': 1, 'vout_sz': 2, 'size': 225, 'weight': 573, 'fee': 2250, 'relayed_by': '0.0.0.0', 'lock_time': 755925, 'tx_index': 4494081061398666, 'double_spend': False, 'time': 1664289787, 'block_index': 755927, 'block_height': 755927, 'inputs': [{'sequence': 4294967293, 'witness': '0247304402205c60bbc5999064c598a9fddbd4405072c3c47e43e3c3e57eb9945904aac169ac02204d539422108b5256826fcd4fb5ebaa56dd18d702dc98f5eef4e7b4d18465fb6b0121036d40149dc2b06f6fc9cbf4665512f3bc732bb718899e9b09f05fb0ba50c8ac75', 'script': '', 'index': 0, 'prev_out': {'addr': 'bc1qyuunv9pz6f4qpgd0c0wmenu9zhr6u57yjf4afd', 'n': 0, 'script': '00142739361422d26a00a1afc3ddbccf8515c7ae53c4', 'spending_outpoints': [{'n': 0, 'tx_index': 4494081061398666}], 'spent': True, 'tx_index': 6467674833564937, 'type': 0, 'value': 5310674450}}], 'out': [{'type': 0, 'spent': True, 'value': 310657500, 'spending_outpoints': [{'tx_index': 4801429243623573, 'n': 1}], 'n': 0, 'tx_index': 4494081061398666, 'script': '76a914cc83c8f42aaf2e514f216d82957c7c20f2bac21488ac', 'addr': '1KeNiiR3BZT8GPqQ61ihmvwRMsCQtcXNYC'}, {'type': 0, 'spent': True, 'value': 5000014700, 'spending_outpoints': [{'tx_index': 5648945386042604, 'n': 0}], 'n': 1, 'tx_index': 4494081061398666, 'script': '00141f7658ae84086c56c867ed435b3d83ca1b9bcc58', 'addr': 'bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40'}], 'result': 5000014700, 'balance': 5000014700}]}
+        self.addr_data = test_addr.addresses[0]
         return self.addr_data['address']
         
     def transaction_prop(self, *args):
@@ -177,6 +180,7 @@ class QueryTransformer(Transformer):
         Returns:
         - Result of the property checker.
         """
+        
         if len(args) == 1:
             print('end recursion', args)
             input()
@@ -196,16 +200,24 @@ class QueryTransformer(Transformer):
         elif args[0] == 'Maxaddr':
             return False
         elif args[0] == 'Gtrans':
-            # TODO:
-            # for n in INT
-            # Pick the highest output -> address (based on highest output btc)
-            # address -> out tx (based on highest output btc)
-            # update self.tx_data
+ 
+            g_trans = []
+            txs_to_check = int(args[1].value)
             
-            for i in args[1]:
-                max_addr = self._find_highest_out_addr()
+            for i in range(txs_to_check):
+                print(f'LOOP {i}')
+                max_addr_hash = self._find_highest_out_addr()
+                # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
+                self.addr_data = test_addr.addresses[i]
+                max_tx_hash = self._find_highest_out_tx()
+                # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
+                self.tx_data = test_tx.txs[i+1]
+                g_trans.append(self._prop_checker(args[2], is_tx=is_tx))
+                print(g_trans)
+                input()
                 
-            return False
+            return all(g_trans)
+        
         elif args[0] == 'Faddr':
             return False   
         elif args[0] == 'Xtrans':
@@ -231,6 +243,9 @@ class QueryTransformer(Transformer):
 
         operator = args[1]
         tx_atom = args[0]
+        print(data)
+        print(tx_atom)
+        input()
         if operator == '=':
             right_value = args[3] if args[2] in ['HEX', 'IP'] else args[2]
             return str(data[tx_atom]) == right_value.value
@@ -247,8 +262,17 @@ class QueryTransformer(Transformer):
         """
         addrs = self.tx_data.get('out', [])
         max_addr = max(addrs, key=lambda addr: addr.get('value', 0), default=None)
-        max_addr = max_addr.get('addr') if max_addr else None
-        return max_addr
+        max_addr_hash = max_addr.get('addr') if max_addr else None
+        return max_addr_hash
+    
+    def _find_highest_out_tx(self):
+        """
+        Find the output transaction with the highest btc amount
+        """
+        txs = self.addr_data.get('txs', [])
+        max_tx = min(txs, key=lambda tx: tx.get('result', 0), default=None)
+        max_tx_hash = max_tx.get('hash') if max_tx else None
+        return max_tx_hash
 
 
 with open("grammar.lark") as f:

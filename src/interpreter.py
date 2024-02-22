@@ -129,7 +129,7 @@ class QueryTransformer(Transformer):
         """
         return self._expression_checker(*args, is_tx=False)
 
-    def transaction_atom(self, attribute):
+    def transaction_atom(self, *args):
         """
         Transaction atom method.
 
@@ -142,14 +142,17 @@ class QueryTransformer(Transformer):
         Raises:
         - KeyError: If the attribute is not found in valid transaction attributes.
         """
+        attribute = args[1] if args[0] != 'len' else args[2]
+        
         if not any(attribute in attr_list for attr_list in [
             self.HEX_ATTRIBUTES[0], self.INT_ATTRIBUTES[0], self.BOOL_ATTRIBUTES[0], 
             self.IP_ATTRIBUTES[0], self.LIST_ATTRIBUTES[0]]
         ):
             raise KeyError(f'{attribute} not found in valid transaction attributes')
-        return attribute
+        
+        return attribute if args[0] != 'len' else attribute, args[0]
     
-    def address_atom(self, attribute):
+    def address_atom(self, *args):
         """
         Address atom method.
 
@@ -162,12 +165,15 @@ class QueryTransformer(Transformer):
         Raises:
         - KeyError: If the attribute is not found in valid address attributes.
         """
+        attribute = args[1] if args[0] != 'len' else args[2]
+        
         if not any(attribute in attr_list for attr_list in [
             self.HEX_ATTRIBUTES[1], self.INT_ATTRIBUTES[1], self.BOOL_ATTRIBUTES[1], 
             self.IP_ATTRIBUTES[1], self.LIST_ATTRIBUTES[1]]
         ):
             raise KeyError(f'{attribute} not found in valid address attributes')
-        return attribute
+        
+        return attribute if args[0] != 'len' else attribute, args[0]
     
     def _prop_checker(self, *args, is_tx):
         """
@@ -243,16 +249,19 @@ class QueryTransformer(Transformer):
 
         operator = args[1]
         tx_atom = args[0]
-        print(data)
+
         print(tx_atom)
         input()
+        
+        expression = len(data[tx_atom[0]]) if isinstance(tx_atom, tuple) else data[tx_atom[0]]
+        
         if operator == '=':
             right_value = args[3] if args[2] in ['HEX', 'IP'] else args[2]
-            return str(data[tx_atom]) == right_value.value
+            return str(expression) == right_value.value
         elif operator == '<':
-            return data[tx_atom] < float(args[2].value)
+            return expression < float(args[2].value)
         elif operator == '>':
-            return data[tx_atom] > float(args[2].value)
+            return expression > float(args[2].value)
         else:
             raise Exception
         
@@ -280,9 +289,10 @@ with open("grammar.lark") as f:
 
 # Test queries
 test_queries = [
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 230 and Transaction.size < 280) and (Transaction.size < 300)",
+    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check len Transaction.out = 225",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 230 and Transaction.size < 280) and (Transaction.size < 300)",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",

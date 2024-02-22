@@ -49,8 +49,10 @@ property : transaction_prop
         | "HEX" HEX_EXT "in" address_atom
 
 // TRANSACTION AND ADDRESS ATOMS
-transaction_atom : "Transaction." CNAME
-address_atom : "Address." CNAME 
+!transaction_atom : "Transaction." CNAME
+        | "len" "Transaction." CNAME
+!address_atom : "Address." CNAME 
+        | "len" "Address." CNAME
 
 // OTHERS
 HEX : ("a".."f"|"A".."F"|DIGIT)+

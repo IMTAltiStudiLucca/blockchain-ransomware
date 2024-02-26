@@ -12,15 +12,16 @@ class QueryTransformer(Transformer):
 
     Attributes:
     - HEX_ATTRIBUTES: List of lists representing HEX attributes for transactions and addresses.
-    - INT_ATTRIBUTES: List of lists representing INT attributes for transactions and addresses.
+    - INT_ATTRIBUTES: List of lists representing NUM attributes for transactions and addresses.
     - BOOL_ATTRIBUTES: List of lists representing BOOL attributes for transactions and addresses.
     - IP_ATTRIBUTES: List of lists representing IP attributes for transactions and addresses.
     - LIST_ATTRIBUTES: List of lists representing LIST attributes for transactions and addresses.
     """
     # First element-> Transaction attribute, second element -> Address attribute
     HEX_ATTRIBUTES = [['hash'], ['hash', 'address']] 
-    INT_ATTRIBUTES = [['ver', 'vin_sz', 'vout_sz', 'size', 'weight', 'fee', 'lock_time', 'tx_index',
-                       'time', 'block_index', 'block_height'],
+    NUM_ATTRIBUTES = [['ver', 'vin_sz', 'vout_sz', 'size', 'weight', 'fee', 'lock_time', 'tx_index',
+                       'time', 'block_index', 'block_height', 'total_rec', 'total_sent', 
+                       'num_inputs', 'num_outputs'],
                       ['n_tx', 'n_unredeemed', 'total_received', 'total_sent', 'final_balance']]
     BOOL_ATTRIBUTES = [['double_spend'], []]
     IP_ATTRIBUTES = [['relayed_by'], []]
@@ -63,7 +64,22 @@ class QueryTransformer(Transformer):
         """
         tx_hash = var.children[0].value
         # self.tx_data = StrategyChecker.api.get_transaction(tx_hash)
-        self.tx_data = test_tx.txs[0]
+        # self.tx_data = test_tx.txs[0]
+        self.tx_data = test_tx.colonial_pipeline_tx1
+        
+        # Add num inputs and output
+        self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
+        self.tx_data['num_outputs'] = len(self.tx_data.get('out'))
+        
+        # TODO: return 0 BTC if len(inputs) and len(outs) is 0
+        # Add total BTC received and sent to the tx
+        self.tx_data['total_rec'] = sum(
+            [i.get('prev_out').get('value') for i in self.tx_data.get('inputs')]
+        ) / 1e8 
+        self.tx_data['total_sent'] = sum(
+            [o.get('value') for o in self.tx_data.get('out')]
+        ) / 1e8 
+        
         return self.tx_data['hash']
             
     def node_address(self, var):
@@ -129,7 +145,7 @@ class QueryTransformer(Transformer):
         """
         return self._expression_checker(*args, is_tx=False)
 
-    def transaction_atom(self, *args):
+    def transaction_atom(self, attribute):
         """
         Transaction atom method.
 
@@ -142,17 +158,15 @@ class QueryTransformer(Transformer):
         Raises:
         - KeyError: If the attribute is not found in valid transaction attributes.
         """
-        attribute = args[1] if args[0] != 'len' else args[2]
-        
+ 
         if not any(attribute in attr_list for attr_list in [
-            self.HEX_ATTRIBUTES[0], self.INT_ATTRIBUTES[0], self.BOOL_ATTRIBUTES[0], 
+            self.HEX_ATTRIBUTES[0], self.NUM_ATTRIBUTES[0], self.BOOL_ATTRIBUTES[0], 
             self.IP_ATTRIBUTES[0], self.LIST_ATTRIBUTES[0]]
         ):
             raise KeyError(f'{attribute} not found in valid transaction attributes')
-        
-        return attribute if args[0] != 'len' else attribute, args[0]
+        return attribute
     
-    def address_atom(self, *args):
+    def address_atom(self, attribute):
         """
         Address atom method.
 
@@ -165,15 +179,13 @@ class QueryTransformer(Transformer):
         Raises:
         - KeyError: If the attribute is not found in valid address attributes.
         """
-        attribute = args[1] if args[0] != 'len' else args[2]
-        
+       
         if not any(attribute in attr_list for attr_list in [
-            self.HEX_ATTRIBUTES[1], self.INT_ATTRIBUTES[1], self.BOOL_ATTRIBUTES[1], 
+            self.HEX_ATTRIBUTES[1], self.NUM_ATTRIBUTES[1], self.BOOL_ATTRIBUTES[1], 
             self.IP_ATTRIBUTES[1], self.LIST_ATTRIBUTES[1]]
         ):
             raise KeyError(f'{attribute} not found in valid address attributes')
-        
-        return attribute if args[0] != 'len' else attribute, args[0]
+        return attribute
     
     def _prop_checker(self, *args, is_tx):
         """
@@ -253,7 +265,7 @@ class QueryTransformer(Transformer):
         print(tx_atom)
         input()
         
-        expression = len(data[tx_atom[0]]) if isinstance(tx_atom, tuple) else data[tx_atom[0]]
+        expression = data[tx_atom]
         
         if operator == '=':
             right_value = args[3] if args[2] in ['HEX', 'IP'] else args[2]
@@ -288,7 +300,7 @@ with open("grammar.lark") as f:
     lark_parser = Lark(f, parser="lalr", transformer=QueryTransformer())
 
 # Test queries
-test_queries = [
+""" test_queries = [
     "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check len Transaction.out = 225",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
@@ -298,6 +310,11 @@ test_queries = [
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
     # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
     # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check (Xtrans Transaction.lock_time > 30) and (Faddr 5 Address.address = HEX 7a51a014)",
+] """
+
+# after 8/5/2021 00:00:00 -> 1620432000
+test_queries = [
+    "From Transaction 6a798026d44af27dbacd28ea21462808df8deca51794cec80c1b59e07ef924a2 Check Transaction.num_inputs = 2 and Transaction.total_rec > 170 and Transaction.time > 1620432000"
 ]
     
 for tq in test_queries:

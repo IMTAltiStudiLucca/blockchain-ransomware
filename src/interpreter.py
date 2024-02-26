@@ -319,4 +319,6 @@ test_queries = [
     
 for tq in test_queries:
     parsed_query = lark_parser.parse(tq)
-    print(f'Query result: {parsed_query}')
+    print(f'Query result: {parsed_query}') # .pretty()
+    # NOTE: To print the AST, we need to import "from lark import tree" and do this step without a transformer class.
+    # tree.pydot__tree_to_png(lark_parser.parse(tq), f"query_{i}.png")

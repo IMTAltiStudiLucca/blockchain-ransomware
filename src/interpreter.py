@@ -64,8 +64,8 @@ class QueryTransformer(Transformer):
         """
         tx_hash = var.children[0].value
         # self.tx_data = StrategyChecker.api.get_transaction(tx_hash)
-        # self.tx_data = test_tx.txs[0]
-        self.tx_data = test_tx.colonial_pipeline_tx1
+        self.tx_data = test_tx.txs[0]
+        # self.tx_data = test_tx.colonial_pipeline_tx1
         
         # Add num inputs and output
         self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
@@ -300,8 +300,8 @@ with open("grammar.lark") as f:
     lark_parser = Lark(f, parser="lalr", transformer=QueryTransformer())
 
 # Test queries
-""" test_queries = [
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check len Transaction.out = 225",
+test_queries = [
+    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.num_outputs = 2",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 230 and Transaction.size < 280) and (Transaction.size < 300)",
@@ -310,12 +310,13 @@ with open("grammar.lark") as f:
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
     # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
     # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check (Xtrans Transaction.lock_time > 30) and (Faddr 5 Address.address = HEX 7a51a014)",
-] """
+]
 
-# after 8/5/2021 00:00:00 -> 1620432000
+""" # after 8/5/2021 00:00:00 -> 1620432000
+# Colonial Pipeline
 test_queries = [
     "From Transaction 6a798026d44af27dbacd28ea21462808df8deca51794cec80c1b59e07ef924a2 Check Transaction.num_inputs = 2 and Transaction.total_rec > 170 and Transaction.time > 1620432000"
-]
+] """
     
 for tq in test_queries:
     parsed_query = lark_parser.parse(tq)

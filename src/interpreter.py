@@ -1,12 +1,12 @@
 from pprint import pprint
-from lark import Lark, Transformer, v_args
+from lark import Lark, Transformer, Visitor, v_args
 
 from blockchaininfo_API_PoC import StrategyChecker
 import test_addr, test_tx 
 
 
 @v_args(inline=True)
-class QueryTransformer(Transformer):
+class QueryTransformer(Visitor):
     """
     Transformer class for querying and transforming data.
 
@@ -145,7 +145,7 @@ class QueryTransformer(Transformer):
         """
         return self._expression_checker(*args, is_tx=False)
 
-    def transaction_atom(self, attribute):
+    def transaction_atom(self, tree):
         """
         Transaction atom method.
 
@@ -158,7 +158,8 @@ class QueryTransformer(Transformer):
         Raises:
         - KeyError: If the attribute is not found in valid transaction attributes.
         """
- 
+        attribute = tree.children[0]
+        
         if not any(attribute in attr_list for attr_list in [
             self.HEX_ATTRIBUTES[0], self.NUM_ATTRIBUTES[0], self.BOOL_ATTRIBUTES[0], 
             self.IP_ATTRIBUTES[0], self.LIST_ATTRIBUTES[0]]
@@ -200,20 +201,20 @@ class QueryTransformer(Transformer):
         """
         
         if len(args) == 1:
-            print('end recursion', args)
-            input()
+            """ print('end recursion', args)
+            input() """
             return args[0]
         elif args[0] == '(' and args[2] == ')':
-            print('()', args)
-            input()
+            """ print('()', args)
+            input() """
             return self._prop_checker(args[1], is_tx=is_tx)
         elif args[1] == 'not':
-            print('not', args)
-            input()
+            """ print('not', args)
+            input() """
             return not self._prop_checker(args[1], is_tx=is_tx)
         elif args[1] == 'and':
-            print('and', args)
-            input()
+            """ print('and', args)
+            input() """
             return self._prop_checker(args[0], is_tx=is_tx) and self._prop_checker(args[2], is_tx=is_tx)
         elif args[0] == 'Maxaddr':
             return False
@@ -230,9 +231,10 @@ class QueryTransformer(Transformer):
                 max_tx_hash = self._find_highest_out_tx()
                 # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
                 self.tx_data = test_tx.txs[i+1]
+                print(args[2])
                 g_trans.append(self._prop_checker(args[2], is_tx=is_tx))
-                print(g_trans)
-                input()
+                """ print(g_trans)
+                input() """
                 
             return all(g_trans)
         
@@ -262,8 +264,8 @@ class QueryTransformer(Transformer):
         operator = args[1]
         tx_atom = args[0]
 
-        print(tx_atom)
-        input()
+        """ print(tx_atom)
+        input() """
         
         expression = data[tx_atom]
         
@@ -297,13 +299,13 @@ class QueryTransformer(Transformer):
 
 
 with open("grammar.lark") as f:
-    lark_parser = Lark(f, parser="lalr", transformer=QueryTransformer())
+    lark_parser = Lark(f, parser="lalr") # , transformer=QueryTransformer())
 
 # Test queries
 test_queries = [
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.num_outputs = 2",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.num_outputs = 2",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
+    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 230 and Transaction.size < 280) and (Transaction.size < 300)",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
@@ -311,6 +313,7 @@ test_queries = [
     # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
     # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check (Xtrans Transaction.lock_time > 30) and (Faddr 5 Address.address = HEX 7a51a014)",
 ]
+
 
 """ # after 8/5/2021 00:00:00 -> 1620432000
 # Colonial Pipeline
@@ -320,6 +323,7 @@ test_queries = [
     
 for tq in test_queries:
     parsed_query = lark_parser.parse(tq)
+    QueryTransformer().visit(parsed_query)
     print(f'Query result: {parsed_query}') # .pretty()
     # NOTE: To print the AST, we need to import "from lark import tree" and do this step without a transformer class.
     # tree.pydot__tree_to_png(lark_parser.parse(tq), f"query_{i}.png")

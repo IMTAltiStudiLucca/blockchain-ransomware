@@ -1,12 +1,14 @@
 from pprint import pprint
-from lark import Lark, Transformer, Visitor, v_args
+from lark import Lark, Transformer, v_args
+from lark.visitors import Interpreter
 
 from blockchaininfo_API_PoC import StrategyChecker
 import test_addr, test_tx 
 
 
-@v_args(inline=True)
-class QueryTransformer(Visitor):
+# TODO: Fix docString
+# @v_args(inline=True)
+class QueryTransformer(Interpreter):
     """
     Transformer class for querying and transforming data.
 
@@ -28,7 +30,7 @@ class QueryTransformer(Visitor):
     LIST_ATTRIBUTES = [['inputs', 'out'], ['txs']]
     
     
-    def query(self, *args):
+    def query(self, tree):
         """
         Query method to retrieve the second argument.
 
@@ -38,8 +40,10 @@ class QueryTransformer(Visitor):
         Returns:
         - The second argument.
         """
-        return args[1]
+        return self.visit_children(tree)
+        # return args[1]
         
+    # TODO: change from here like the other child 
     def property(self, var):
         """
         Property method to return the input variable unchanged.
@@ -52,7 +56,7 @@ class QueryTransformer(Visitor):
         """
         return var
     
-    def node_transaction(self, var):
+    def node_transaction(self, tree):
         """
         Node method for transactions.
 
@@ -62,7 +66,7 @@ class QueryTransformer(Visitor):
         Returns:
         - The hash of the transaction.
         """
-        tx_hash = var.children[0].value
+        tx_hash = tree.children[0].children[0].value
         # self.tx_data = StrategyChecker.api.get_transaction(tx_hash)
         self.tx_data = test_tx.txs[0]
         # self.tx_data = test_tx.colonial_pipeline_tx1

@@ -1,3 +1,4 @@
+import itertools
 from pprint import pprint
 from lark import Lark, Transformer, v_args
 from lark.visitors import Interpreter
@@ -41,10 +42,8 @@ class QueryTransformer(Interpreter):
         - The second argument.
         """
         return self.visit_children(tree)
-        # return args[1]
         
-    # TODO: change from here like the other child 
-    def property(self, var):
+    def property(self, tree):
         """
         Property method to return the input variable unchanged.
 
@@ -54,7 +53,7 @@ class QueryTransformer(Interpreter):
         Returns:
         - The input variable.
         """
-        return var
+        return self.visit_children(tree)
     
     def node_transaction(self, tree):
         """
@@ -101,7 +100,7 @@ class QueryTransformer(Interpreter):
         self.addr_data = test_addr.addresses[0]
         return self.addr_data['address']
         
-    def transaction_prop(self, *args):
+    def transaction_prop(self, tree):
         """
         Transaction property checker.
 
@@ -111,9 +110,9 @@ class QueryTransformer(Interpreter):
         Returns:
         - Result of the property checker.
         """
-        return self._prop_checker(*args, is_tx=True)
+        return self._prop_checker(tree)
         
-    def address_prop(self, *args):
+    def address_prop(self, tree):
         """
         Address property checker.
 
@@ -123,9 +122,9 @@ class QueryTransformer(Interpreter):
         Returns:
         - Result of the property checker.
         """
-        return self._prop_checker(*args, is_tx=False)
+        return self._prop_checker(tree)
         
-    def transaction_expression(self, *args):
+    def transaction_expression(self, tree):
         """
         Transaction expression checker.
 
@@ -135,9 +134,9 @@ class QueryTransformer(Interpreter):
         Returns:
         - Result of the expression checker.
         """
-        return self._expression_checker(*args, is_tx=True)
+        return self._expression_checker(tree)
     
-    def address_expression(self, *args):
+    def address_expression(self, tree):
         """
         Address expression checker.
 
@@ -147,52 +146,9 @@ class QueryTransformer(Interpreter):
         Returns:
         - Result of the expression checker.
         """
-        return self._expression_checker(*args, is_tx=False)
-
-    def transaction_atom(self, tree):
-        """
-        Transaction atom method.
-
-        Args:
-        - attribute: Attribute to check.
-
-        Returns:
-        - The input attribute if found in valid transaction attributes.
-
-        Raises:
-        - KeyError: If the attribute is not found in valid transaction attributes.
-        """
-        attribute = tree.children[0]
-        
-        if not any(attribute in attr_list for attr_list in [
-            self.HEX_ATTRIBUTES[0], self.NUM_ATTRIBUTES[0], self.BOOL_ATTRIBUTES[0], 
-            self.IP_ATTRIBUTES[0], self.LIST_ATTRIBUTES[0]]
-        ):
-            raise KeyError(f'{attribute} not found in valid transaction attributes')
-        return attribute
+        return self._expression_checker(tree)
     
-    def address_atom(self, attribute):
-        """
-        Address atom method.
-
-        Args:
-        - attribute: Attribute to check.
-
-        Returns:
-        - The input attribute if found in valid address attributes.
-
-        Raises:
-        - KeyError: If the attribute is not found in valid address attributes.
-        """
-       
-        if not any(attribute in attr_list for attr_list in [
-            self.HEX_ATTRIBUTES[1], self.NUM_ATTRIBUTES[1], self.BOOL_ATTRIBUTES[1], 
-            self.IP_ATTRIBUTES[1], self.LIST_ATTRIBUTES[1]]
-        ):
-            raise KeyError(f'{attribute} not found in valid address attributes')
-        return attribute
-    
-    def _prop_checker(self, *args, is_tx):
+    def _prop_checker(self, tree):
         """
         Internal method for property checking.
 
@@ -203,53 +159,28 @@ class QueryTransformer(Interpreter):
         Returns:
         - Result of the property checker.
         """
-        
-        if len(args) == 1:
-            """ print('end recursion', args)
-            input() """
-            return args[0]
-        elif args[0] == '(' and args[2] == ')':
-            """ print('()', args)
-            input() """
-            return self._prop_checker(args[1], is_tx=is_tx)
-        elif args[1] == 'not':
-            """ print('not', args)
-            input() """
-            return not self._prop_checker(args[1], is_tx=is_tx)
-        elif args[1] == 'and':
-            """ print('and', args)
-            input() """
-            return self._prop_checker(args[0], is_tx=is_tx) and self._prop_checker(args[2], is_tx=is_tx)
-        elif args[0] == 'Maxaddr':
-            return False
-        elif args[0] == 'Gtrans':
- 
-            g_trans = []
-            txs_to_check = int(args[1].value)
+        print(tree)
+        if len(tree.children) == 1 and tree.children[0].data in ['transaction_expression', 'address_expression']:
+            return self.visit_children(tree)
+        elif tree.children[1] == 'and':
+            expression_results = []
             
-            for i in range(txs_to_check):
-                print(f'LOOP {i}')
-                max_addr_hash = self._find_highest_out_addr()
-                # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
-                self.addr_data = test_addr.addresses[i]
-                max_tx_hash = self._find_highest_out_tx()
-                # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
-                self.tx_data = test_tx.txs[i+1]
-                print(args[2])
-                g_trans.append(self._prop_checker(args[2], is_tx=is_tx))
-                """ print(g_trans)
-                input() """
-                
-            return all(g_trans)
-        
-        elif args[0] == 'Faddr':
-            return False   
-        elif args[0] == 'Xtrans':
-            return False 
+            for child in tree.children:
+                if child.data in ['transaction_prop', 'address_prop']:
+                    expression_results.append(self._prop_checker(child))
+                    
+            return all(expression_results)
         else:
-            raise Exception      
+            raise Exception
+                
+        """ elif tree.children[0] == '(' and tree.children[2] == ')':
+            return self._prop_checker(tree.children[1])
+        elif tree.children[1] == 'not':
+            return not self._prop_checker(args[1]) """
+
+              
     
-    def _expression_checker(self, *args, is_tx):
+    def _expression_checker(self, tree):
         """
         Internal method for expression checking.
 
@@ -260,28 +191,27 @@ class QueryTransformer(Interpreter):
         Returns:
         - Result of the expression checker.
         """
-        data = self.tx_data if is_tx else self.addr_data
+                
+        expression = self.visit_children(tree)[0]
 
-        if args[0] == 'HEX':
-            return args[1] in data[args[3]]
-
-        operator = args[1]
-        tx_atom = args[0]
-
-        """ print(tx_atom)
-        input() """
-        
-        expression = data[tx_atom]
+        operator = tree.children[1]
         
         if operator == '=':
-            right_value = args[3] if args[2] in ['HEX', 'IP'] else args[2]
+            right_value = tree.children[3] if tree.children[2] in ['HEX', 'IP'] else tree.children[2]
             return str(expression) == right_value.value
         elif operator == '<':
-            return expression < float(args[2].value)
+            return expression < float(tree.children[2].value)
         elif operator == '>':
-            return expression > float(args[2].value)
+            return expression > float(tree.children[2].value)
         else:
             raise Exception
+        
+    def transaction_atom(self, tree):
+        return self.tx_data[tree.children[0]]
+    
+    def address_atom(self, tree):
+        return self.addr_data[tree.children[0]]
+
         
     def _find_highest_out_addr(self):
         """
@@ -309,7 +239,8 @@ with open("grammar.lark") as f:
 test_queries = [
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.num_outputs = 2",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
+    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225 and Transaction.num_outputs = 2",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 230 and Transaction.size < 280) and (Transaction.size < 300)",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
@@ -327,7 +258,8 @@ test_queries = [
     
 for tq in test_queries:
     parsed_query = lark_parser.parse(tq)
-    QueryTransformer().visit(parsed_query)
-    print(f'Query result: {parsed_query}') # .pretty()
+    node, query_result = QueryTransformer().visit(parsed_query)
+    query_result = list(itertools.chain(*query_result))[0]
+    print(f'Query result for node {node}:\n {query_result}') # .pretty()
     # NOTE: To print the AST, we need to import "from lark import tree" and do this step without a transformer class.
     # tree.pydot__tree_to_png(lark_parser.parse(tq), f"query_{i}.png")

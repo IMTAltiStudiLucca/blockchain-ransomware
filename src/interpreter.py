@@ -1,6 +1,6 @@
 import itertools
 from pprint import pprint
-from lark import Lark, Transformer, v_args
+from lark import Lark, Transformer, v_args, Token
 from lark.visitors import Interpreter
 
 from blockchaininfo_API_PoC import StrategyChecker
@@ -20,6 +20,8 @@ class QueryTransformer(Interpreter):
     - IP_ATTRIBUTES: List of lists representing IP attributes for transactions and addresses.
     - LIST_ATTRIBUTES: List of lists representing LIST attributes for transactions and addresses.
     """
+    # TODO: log system for visited nodes
+    # TODO: Not used anymore, remove 
     # First element-> Transaction attribute, second element -> Address attribute
     HEX_ATTRIBUTES = [['hash'], ['hash', 'address']] 
     NUM_ATTRIBUTES = [['ver', 'vin_sz', 'vout_sz', 'size', 'weight', 'fee', 'lock_time', 'tx_index',
@@ -85,7 +87,7 @@ class QueryTransformer(Interpreter):
         
         return self.tx_data['hash']
             
-    def node_address(self, var):
+    def node_address(self, tree):
         """
         Node method for addresses.
 
@@ -95,7 +97,7 @@ class QueryTransformer(Interpreter):
         Returns:
         - The address hash.
         """
-        addr_hash = var.children[0].value
+        addr_hash = tree.children[0].children[0].value
         # self.addr_data = StrategyChecker.api.get_address(addr_hash)
         self.addr_data = test_addr.addresses[0]
         return self.addr_data['address']
@@ -134,6 +136,7 @@ class QueryTransformer(Interpreter):
         Returns:
         - Result of the expression checker.
         """
+        self._print_node(tree)
         return self._expression_checker(tree)
     
     def address_expression(self, tree):
@@ -159,17 +162,29 @@ class QueryTransformer(Interpreter):
         Returns:
         - Result of the property checker.
         """
-        print(tree)
+        # print(tree)
+        # TODO: add comment here
         if len(tree.children) == 1 and tree.children[0].data in ['transaction_expression', 'address_expression']:
             return self.visit_children(tree)
-        elif tree.children[1] == 'and':
-            expression_results = []
+        
+        elif tree.children[0] == '(' and tree.children[2] == ')':
             
-            for child in tree.children:
-                if child.data in ['transaction_prop', 'address_prop']:
-                    expression_results.append(self._prop_checker(child))
-                    
-            return all(expression_results)
+            for i, child in enumerate(tree.children):
+                if not isinstance(child, Token):
+                    print(f'Visiting child-{i}')
+                    return self._get_boolean(self.visit(child))
+                            
+        elif tree.children[1] == 'and':
+            
+            for i, child in enumerate(tree.children):
+                if not isinstance(child, Token):
+                    print(f'Visiting child-{i}')
+                    eval_res = self._get_boolean(self.visit(child))
+                    if eval_res == False:
+                        return False
+             
+            return True     
+          
         else:
             raise Exception
                 
@@ -177,8 +192,6 @@ class QueryTransformer(Interpreter):
             return self._prop_checker(tree.children[1])
         elif tree.children[1] == 'not':
             return not self._prop_checker(args[1]) """
-
-              
     
     def _expression_checker(self, tree):
         """
@@ -197,6 +210,7 @@ class QueryTransformer(Interpreter):
         operator = tree.children[1]
         
         if operator == '=':
+            # TODO: add comment here
             right_value = tree.children[3] if tree.children[2] in ['HEX', 'IP'] else tree.children[2]
             return str(expression) == right_value.value
         elif operator == '<':
@@ -206,12 +220,11 @@ class QueryTransformer(Interpreter):
         else:
             raise Exception
         
-    def transaction_atom(self, tree):
+    def transaction_atom(self, tree):        
         return self.tx_data[tree.children[0]]
     
     def address_atom(self, tree):
         return self.addr_data[tree.children[0]]
-
         
     def _find_highest_out_addr(self):
         """
@@ -231,6 +244,20 @@ class QueryTransformer(Interpreter):
         max_tx_hash = max_tx.get('hash') if max_tx else None
         return max_tx_hash
 
+    def _get_boolean(self, v):
+        bv = v[0] if isinstance(v, list) else v
+        if not isinstance(bv, bool):
+            raise ValueError(f'Returned value -{bv}- from child is not a boolean value')
+        return bv
+    
+    def _print_node(self, tree):
+        s = ''
+        for child in tree.children:
+            if isinstance(child, Token):
+                s += f'{child} '
+            else:
+                s += f'{child.children[0]} '
+        print(s)
 
 with open("grammar.lark") as f:
     lark_parser = Lark(f, parser="lalr") # , transformer=QueryTransformer())
@@ -239,9 +266,10 @@ with open("grammar.lark") as f:
 test_queries = [
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.num_outputs = 2",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225 and Transaction.num_outputs = 2",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225 and Transaction.num_outputs = 2 and Transaction.time > 1664289786 and Transaction.lock_time = 755925",
+    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size = 225 and (Transaction.time > 1664289786 and Transaction.num_outputs = 2))",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 230 and Transaction.size < 280) and (Transaction.size < 300)",
+    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 220 and Transaction.size < 280) and (Transaction.num_outputs = 2)",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
     # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
@@ -259,7 +287,7 @@ test_queries = [
 for tq in test_queries:
     parsed_query = lark_parser.parse(tq)
     node, query_result = QueryTransformer().visit(parsed_query)
-    query_result = list(itertools.chain(*query_result))[0]
+    # query_result = list(itertools.chain(*query_result))[0] #TODO: return only a boolean value
     print(f'Query result for node {node}:\n {query_result}') # .pretty()
     # NOTE: To print the AST, we need to import "from lark import tree" and do this step without a transformer class.
     # tree.pydot__tree_to_png(lark_parser.parse(tq), f"query_{i}.png")

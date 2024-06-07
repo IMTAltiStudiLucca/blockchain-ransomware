@@ -1,71 +1,49 @@
-import itertools
-from pprint import pprint
-from lark import Lark, Transformer, v_args, Token
+from lark import Token
 from lark.visitors import Interpreter
 
 from blockchaininfo_API_PoC import StrategyChecker
 import test_addr, test_tx 
 
 
-# TODO: Fix docString
-# @v_args(inline=True)
-class QueryTransformer(Interpreter):
+class QueryInterpreter(Interpreter):
     """
-    Transformer class for querying and transforming data.
-
-    Attributes:
-    - HEX_ATTRIBUTES: List of lists representing HEX attributes for transactions and addresses.
-    - INT_ATTRIBUTES: List of lists representing NUM attributes for transactions and addresses.
-    - BOOL_ATTRIBUTES: List of lists representing BOOL attributes for transactions and addresses.
-    - IP_ATTRIBUTES: List of lists representing IP attributes for transactions and addresses.
-    - LIST_ATTRIBUTES: List of lists representing LIST attributes for transactions and addresses.
+    Interpreter class for querying and transforming data.
     """
     # TODO: log system for visited nodes
-    # TODO: Not used anymore, remove 
-    # First element-> Transaction attribute, second element -> Address attribute
-    HEX_ATTRIBUTES = [['hash'], ['hash', 'address']] 
-    NUM_ATTRIBUTES = [['ver', 'vin_sz', 'vout_sz', 'size', 'weight', 'fee', 'lock_time', 'tx_index',
-                       'time', 'block_index', 'block_height', 'total_rec', 'total_sent', 
-                       'num_inputs', 'num_outputs'],
-                      ['n_tx', 'n_unredeemed', 'total_received', 'total_sent', 'final_balance']]
-    BOOL_ATTRIBUTES = [['double_spend'], []]
-    IP_ATTRIBUTES = [['relayed_by'], []]
-    LIST_ATTRIBUTES = [['inputs', 'out'], ['txs']]
-    
     
     def query(self, tree):
         """
-        Query method to retrieve the second argument.
+        Process a query node.
 
         Args:
-        - args: Variable number of arguments.
-
+            tree: The tree structure for the current query starting from the current node.
+            
         Returns:
-        - The second argument.
+            Result of visiting the children of the query node.
         """
         return self.visit_children(tree)
         
     def property(self, tree):
         """
-        Property method to return the input variable unchanged.
+        Process a property node.
 
         Args:
-        - var: Input variable.
-
+            tree: The tree structure for the current query starting from the current node.
+            
         Returns:
-        - The input variable.
+            Result of visiting the children of the property node.
         """
         return self.visit_children(tree)
     
     def node_transaction(self, tree):
         """
-        Node method for transactions.
+        Process a transaction node and gather transaction data.
 
         Args:
-        - var: Input variable.
+            tree: The tree structure for the current query starting from the current node.
 
         Returns:
-        - The hash of the transaction.
+            The hash of the transaction.
         """
         tx_hash = tree.children[0].children[0].value
         # self.tx_data = StrategyChecker.api.get_transaction(tx_hash)
@@ -89,13 +67,13 @@ class QueryTransformer(Interpreter):
             
     def node_address(self, tree):
         """
-        Node method for addresses.
+        Process an address node and gather address data.
 
         Args:
-        - var: Input variable.
+            tree: The tree structure for the current query starting from the current node.
 
         Returns:
-        - The address hash.
+            The address hash.
         """
         addr_hash = tree.children[0].children[0].value
         # self.addr_data = StrategyChecker.api.get_address(addr_hash)
@@ -104,76 +82,77 @@ class QueryTransformer(Interpreter):
         
     def transaction_prop(self, tree):
         """
-        Transaction property checker.
+        Process a transaction property node.
 
         Args:
-        - args: Variable number of arguments.
+            tree: The tree structure for the current query starting from the current node.
 
         Returns:
-        - Result of the property checker.
+            Result of property checking.
         """
         return self._prop_checker(tree)
         
     def address_prop(self, tree):
         """
-        Address property checker.
+        Process an address property node.
 
         Args:
-        - args: Variable number of arguments.
+            tree: The tree structure for the current query starting from the current node.
 
         Returns:
-        - Result of the property checker.
+            Result of property checking.
         """
         return self._prop_checker(tree)
         
     def transaction_expression(self, tree):
         """
-        Transaction expression checker.
+        Process a transaction expression node.
 
         Args:
-        - args: Variable number of arguments.
+            tree: The tree structure for the current query starting from the current node.
 
         Returns:
-        - Result of the expression checker.
+            Result of expression checking.
         """
         self._print_node(tree)
         return self._expression_checker(tree)
     
     def address_expression(self, tree):
         """
-        Address expression checker.
+        Process an address expression node.
 
         Args:
-        - args: Variable number of arguments.
+            tree: The tree structure for the current query starting from the current node.
 
         Returns:
-        - Result of the expression checker.
+            Result of expression checking.
         """
         return self._expression_checker(tree)
     
     def _prop_checker(self, tree):
         """
-        Internal method for property checking.
+        Check properties based on the provided tree structure.
 
         Args:
-        - args: Variable number of arguments.
-        - is_tx: Boolean indicating whether it's a transaction check.
+            tree: The tree structure for the current query starting from the current node.
 
         Returns:
-        - Result of the property checker.
+            Boolean result based on property evaluation.
         """
-        # print(tree)
-        # TODO: add comment here
+        # If there is only one child left return the output value of the child
         if len(tree.children) == 1 and tree.children[0].data in ['transaction_expression', 'address_expression']:
             return self.visit_children(tree)
         
+        # If the structure is a parenthesized expression (e.g., (expression)), visit the child node.
         elif tree.children[0] == '(' and tree.children[2] == ')':
             
             for i, child in enumerate(tree.children):
                 if not isinstance(child, Token):
                     print(f'Visiting child-{i}')
                     return self._get_boolean(self.visit(child))
-                            
+                
+        # If the structure is a logical 'and' operation, evaluate each child.
+        # End the visit if one child returns False                   
         elif tree.children[1] == 'and':
             
             for i, child in enumerate(tree.children):
@@ -182,29 +161,23 @@ class QueryTransformer(Interpreter):
                     eval_res = self._get_boolean(self.visit(child))
                     if eval_res == False:
                         return False
-             
             return True     
           
         else:
             raise Exception
-                
-        """ elif tree.children[0] == '(' and tree.children[2] == ')':
-            return self._prop_checker(tree.children[1])
-        elif tree.children[1] == 'not':
+        """ elif tree.children[1] == 'not':
             return not self._prop_checker(args[1]) """
     
-    def _expression_checker(self, tree):
+    def _expression_checker(self, tree):  
         """
-        Internal method for expression checking.
+        Check expressions based on the provided tree structure.
 
         Args:
-        - args: Variable number of arguments.
-        - is_tx: Boolean indicating whether it's a transaction check.
+            tree: The tree structure for the current query starting from the current node.
 
         Returns:
-        - Result of the expression checker.
+            Result of expression evaluation.
         """
-                
         expression = self.visit_children(tree)[0]
 
         operator = tree.children[1]
@@ -220,15 +193,36 @@ class QueryTransformer(Interpreter):
         else:
             raise Exception
         
-    def transaction_atom(self, tree):        
+    def transaction_atom(self, tree):   
+        """
+        Process a transaction atom node.
+
+        Args:
+            tree: The tree structure for the current query starting from the current node.
+
+        Returns:
+            The value of the transaction relative to the field specified by tx atom
+        """     
         return self.tx_data[tree.children[0]]
     
     def address_atom(self, tree):
+        """
+        Process an address atom node.
+
+        Args:
+            tree: The tree structure for the current query starting from the current node.
+
+        Returns:
+            The value of the address relative to the field specified by addr atom
+        """
         return self.addr_data[tree.children[0]]
         
     def _find_highest_out_addr(self):
         """
-        Find the address with the highest btc output from a txs
+        Find the address with the highest output value.
+
+        Returns:
+            The hash of the address with the highest output value.
         """
         addrs = self.tx_data.get('out', [])
         max_addr = max(addrs, key=lambda addr: addr.get('value', 0), default=None)
@@ -237,7 +231,10 @@ class QueryTransformer(Interpreter):
     
     def _find_highest_out_tx(self):
         """
-        Find the output transaction with the highest btc amount
+        Find the transaction with the highest output value.
+
+        Returns:
+            The hash of the transaction with the highest output value.
         """
         txs = self.addr_data.get('txs', [])
         max_tx = min(txs, key=lambda tx: tx.get('result', 0), default=None)
@@ -245,12 +242,28 @@ class QueryTransformer(Interpreter):
         return max_tx_hash
 
     def _get_boolean(self, v):
+        """
+        Convert a value to a boolean.
+
+        Args:
+            tree: The tree structure for the current query starting from the current node.
+            v: The value to convert.
+
+        Returns:
+            The boolean representation of the value.
+        """
         bv = v[0] if isinstance(v, list) else v
         if not isinstance(bv, bool):
             raise ValueError(f'Returned value -{bv}- from child is not a boolean value')
         return bv
     
     def _print_node(self, tree):
+        """
+        Print the tree node for debugging purposes.
+
+        Args:
+            tree: The tree structure for the current query starting from the current node.
+        """
         s = ''
         for child in tree.children:
             if isinstance(child, Token):
@@ -258,36 +271,3 @@ class QueryTransformer(Interpreter):
             else:
                 s += f'{child.children[0]} '
         print(s)
-
-with open("grammar.lark") as f:
-    lark_parser = Lark(f, parser="lalr") # , transformer=QueryTransformer())
-
-# Test queries
-test_queries = [
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.num_outputs = 2",
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225 and Transaction.num_outputs = 2 and Transaction.time > 1664289786 and Transaction.lock_time = 755925",
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size = 225 and (Transaction.time > 1664289786 and Transaction.num_outputs = 2))",
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
-    "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 220 and Transaction.size < 280) and (Transaction.num_outputs = 2)",
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
-    # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
-    # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
-    # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check (Xtrans Transaction.lock_time > 30) and (Faddr 5 Address.address = HEX 7a51a014)",
-]
-
-
-""" # after 8/5/2021 00:00:00 -> 1620432000
-# Colonial Pipeline
-test_queries = [
-    "From Transaction 6a798026d44af27dbacd28ea21462808df8deca51794cec80c1b59e07ef924a2 Check Transaction.num_inputs = 2 and Transaction.total_rec > 170 and Transaction.time > 1620432000"
-] """
-    
-for tq in test_queries:
-    parsed_query = lark_parser.parse(tq)
-    node, query_result = QueryTransformer().visit(parsed_query)
-    # query_result = list(itertools.chain(*query_result))[0] #TODO: return only a boolean value
-    print(f'Query result for node {node}:\n {query_result}') # .pretty()
-    # NOTE: To print the AST, we need to import "from lark import tree" and do this step without a transformer class.
-    # tree.pydot__tree_to_png(lark_parser.parse(tq), f"query_{i}.png")

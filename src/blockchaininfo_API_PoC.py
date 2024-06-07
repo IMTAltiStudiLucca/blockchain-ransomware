@@ -55,7 +55,7 @@ class BlockchainDataAPI:
             print(f"Failed to retrieve data for transaction with hash {tx_hash}")
             return None
 
-
+# TODO: obsolete, to be removed
 class StrategyChecker:
     api = BlockchainDataAPI()
     

@@ -163,13 +163,24 @@ class QueryInterpreter(Interpreter):
                         return False
             return True   
         
+        # If the structure has a logical 'not' operation
         elif tree.children[0] == 'not':  
             
             for i, child in enumerate(tree.children):
                 if not isinstance(child, Token):
                     print(f'Visiting child-{i}')
                     return not self._get_boolean(self.visit(child))
-          
+                
+        # Xtrans
+        elif tree.children[0] == 'Xtrans':  
+            max_tx_hash = self._find_highest_out_tx()
+            # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
+            self.tx_data = test_tx.txs[0]
+            for i, child in enumerate(tree.children):
+                if not isinstance(child, Token):
+                    print(f'Visiting child-{i}')
+                    return self._get_boolean(self.visit(child))
+         
         else:
             raise Exception
 

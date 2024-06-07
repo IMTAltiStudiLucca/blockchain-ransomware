@@ -152,22 +152,27 @@ class QueryInterpreter(Interpreter):
                     return self._get_boolean(self.visit(child))
                 
         # If the structure is a logical 'and' operation, evaluate each child.
-        # End the visit if one child returns False                   
         elif tree.children[1] == 'and':
             
             for i, child in enumerate(tree.children):
                 if not isinstance(child, Token):
                     print(f'Visiting child-{i}')
                     eval_res = self._get_boolean(self.visit(child))
+                    # End the visit if one child returns False                   
                     if eval_res == False:
                         return False
-            return True     
+            return True   
+        
+        elif tree.children[0] == 'not':  
+            
+            for i, child in enumerate(tree.children):
+                if not isinstance(child, Token):
+                    print(f'Visiting child-{i}')
+                    return not self._get_boolean(self.visit(child))
           
         else:
             raise Exception
-        """ elif tree.children[1] == 'not':
-            return not self._prop_checker(args[1]) """
-    
+
     def _expression_checker(self, tree):  
         """
         Check expressions based on the provided tree structure.

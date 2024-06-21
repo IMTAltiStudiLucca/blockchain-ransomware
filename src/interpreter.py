@@ -180,7 +180,7 @@ class QueryInterpreter(Interpreter):
                 for _, child in enumerate(tree.children):
                     if not isinstance(child, Token):
                         eval_res = self._get_boolean(self.visit(child))
-                        # If at least one is tx is false, return False 
+                        # If at least one tx is false, return False 
                         # otherwise move to the next tx
                         if eval_res == False:
                             return False
@@ -199,12 +199,50 @@ class QueryInterpreter(Interpreter):
                 for _, child in enumerate(tree.children):
                     if not isinstance(child, Token):
                         eval_res = self._get_boolean(self.visit(child))
-                        # If at least one is tx is true, return True 
+                        # If at least one tx is true, return True 
                         # otherwise move to the next tx
                         if eval_res == True:
                             return True
                 
                 self._move_to_next_tx(ftrans_iter)   
+            return False
+        
+        # Gaddr  
+        elif tree.children[0] == 'Gaddr':  
+            
+            for gaddr_iter in range(0, int(tree.children[1].value)):
+                print('='*100)
+                print(f'Gaddr iteration: {gaddr_iter}')
+                print(f"Current addr: {self.addr_data['address']}")
+                
+                for _, child in enumerate(tree.children):
+                    if not isinstance(child, Token):
+                        eval_res = self._get_boolean(self.visit(child))
+                        # If at least one addr is false, return False 
+                        # otherwise move to the next tx
+                        if eval_res == False:
+                            return False
+                
+                self._move_to_next_addr(gaddr_iter)   
+            return True
+        
+        # Faddr 
+        elif tree.children[0] == 'Faddr':  
+            
+            for faddr_iter in range(0, int(tree.children[1].value)):
+                print('='*100)
+                print(f'Faddr iteration: {faddr_iter}')
+                print(f"Current addr: {self.addr_data['address']}")
+                
+                for _, child in enumerate(tree.children):
+                    if not isinstance(child, Token):
+                        eval_res = self._get_boolean(self.visit(child))
+                        # If at least one addr is true, return True 
+                        # otherwise move to the next tx
+                        if eval_res == True:
+                            return True
+                
+                self._move_to_next_addr(faddr_iter)   
             return False
          
         else:
@@ -258,6 +296,56 @@ class QueryInterpreter(Interpreter):
             The value of the address relative to the field specified by addr atom
         """
         return self.addr_data[tree.children[0]]
+
+    def _get_boolean(self, v):
+        """
+        Convert a value to a boolean.
+
+        Args:
+            tree: The tree structure for the current query starting from the current node.
+            v: The value to convert.
+
+        Returns:
+            The boolean representation of the value.
+        """
+        bv = v[0] if isinstance(v, list) else v
+        if not isinstance(bv, bool):
+            raise ValueError(f'Returned value -{bv}- from child is not a boolean value')
+        return bv
+    
+    # TODO: if tx or addr doesn't exist stop iterating
+    def _move_to_next_tx(self, iter):
+        # Move to next tx 
+        max_addr_hash = self._find_highest_out_addr()
+        # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
+        self.addr_data = test_addr.addresses[iter]
+        max_tx_hash = self._find_highest_out_tx()
+        # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
+        self.tx_data = test_tx.txs[iter+1]
+        self._add_tx_properties()
+        
+    def _move_to_next_addr(self, iter):
+        # Move to next addr 
+        max_tx_hash = self._find_highest_out_tx()
+        # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
+        self.tx_data = test_tx.txs[iter]
+        max_addr_hash = self._find_highest_out_addr()
+        # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
+        self.addr_data = test_addr.addresses[iter+1]
+        
+    def _add_tx_properties(self):
+        # Add num inputs and output
+        self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
+        self.tx_data['num_outputs'] = len(self.tx_data.get('out'))
+        
+        # TODO: return 0 BTC if len(inputs) and len(outs) is 0
+        # Add total BTC received and sent to the tx
+        self.tx_data['total_rec'] = sum(
+            [i.get('prev_out').get('value') for i in self.tx_data.get('inputs')]
+        ) / 1e8 
+        self.tx_data['total_sent'] = sum(
+            [o.get('value') for o in self.tx_data.get('out')]
+        ) / 1e8 
         
     def _find_highest_out_addr(self):
         """
@@ -281,48 +369,8 @@ class QueryInterpreter(Interpreter):
         txs = self.addr_data.get('txs', [])
         max_tx = min(txs, key=lambda tx: tx.get('result', 0), default=None)
         max_tx_hash = max_tx.get('hash') if max_tx else None
-        return max_tx_hash
-
-    def _get_boolean(self, v):
-        """
-        Convert a value to a boolean.
-
-        Args:
-            tree: The tree structure for the current query starting from the current node.
-            v: The value to convert.
-
-        Returns:
-            The boolean representation of the value.
-        """
-        bv = v[0] if isinstance(v, list) else v
-        if not isinstance(bv, bool):
-            raise ValueError(f'Returned value -{bv}- from child is not a boolean value')
-        return bv
+        return max_tx_hash    
     
-    def _move_to_next_tx(self, iter):
-        # Move to next tx 
-        max_addr_hash = self._find_highest_out_addr()
-        # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
-        self.addr_data = test_addr.addresses[iter]
-        max_tx_hash = self._find_highest_out_tx()
-        # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
-        self.tx_data = test_tx.txs[iter+1]
-        self._add_tx_properties()
-        
-    def _add_tx_properties(self):
-        # Add num inputs and output
-        self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
-        self.tx_data['num_outputs'] = len(self.tx_data.get('out'))
-        
-        # TODO: return 0 BTC if len(inputs) and len(outs) is 0
-        # Add total BTC received and sent to the tx
-        self.tx_data['total_rec'] = sum(
-            [i.get('prev_out').get('value') for i in self.tx_data.get('inputs')]
-        ) / 1e8 
-        self.tx_data['total_sent'] = sum(
-            [o.get('value') for o in self.tx_data.get('out')]
-        ) / 1e8 
-        
     def _print_node(self, tree, eval_res):
         """
         Print the tree node for debugging purposes.

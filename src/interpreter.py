@@ -50,18 +50,7 @@ class QueryInterpreter(Interpreter):
         self.tx_data = test_tx.txs[0]
         # self.tx_data = test_tx.colonial_pipeline_tx1
         
-        # Add num inputs and output
-        self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
-        self.tx_data['num_outputs'] = len(self.tx_data.get('out'))
-        
-        # TODO: return 0 BTC if len(inputs) and len(outs) is 0
-        # Add total BTC received and sent to the tx
-        self.tx_data['total_rec'] = sum(
-            [i.get('prev_out').get('value') for i in self.tx_data.get('inputs')]
-        ) / 1e8 
-        self.tx_data['total_sent'] = sum(
-            [o.get('value') for o in self.tx_data.get('out')]
-        ) / 1e8 
+        self._add_tx_properties()
         
         return self.tx_data['hash']
             
@@ -114,8 +103,9 @@ class QueryInterpreter(Interpreter):
         Returns:
             Result of expression checking.
         """
-        self._print_node(tree)
-        return self._expression_checker(tree)
+        eval_res =  self._expression_checker(tree)
+        self._print_node(tree, eval_res)
+        return eval_res
     
     def address_expression(self, tree):
         """
@@ -127,7 +117,9 @@ class QueryInterpreter(Interpreter):
         Returns:
             Result of expression checking.
         """
-        return self._expression_checker(tree)
+        eval_res =  self._expression_checker(tree)
+        self._print_node(tree, eval_res)
+        return eval_res
     
     def _prop_checker(self, tree):
         """
@@ -148,7 +140,6 @@ class QueryInterpreter(Interpreter):
             
             for i, child in enumerate(tree.children):
                 if not isinstance(child, Token):
-                    print(f'Visiting child-{i}')
                     return self._get_boolean(self.visit(child))
                 
         # If the structure is a logical 'and' operation, evaluate each child.
@@ -156,7 +147,6 @@ class QueryInterpreter(Interpreter):
             
             for i, child in enumerate(tree.children):
                 if not isinstance(child, Token):
-                    print(f'Visiting child-{i}')
                     eval_res = self._get_boolean(self.visit(child))
                     # End the visit if one child returns False                   
                     if eval_res == False:
@@ -168,7 +158,6 @@ class QueryInterpreter(Interpreter):
             
             for i, child in enumerate(tree.children):
                 if not isinstance(child, Token):
-                    print(f'Visiting child-{i}')
                     return not self._get_boolean(self.visit(child))
                 
         # Xtrans
@@ -178,8 +167,31 @@ class QueryInterpreter(Interpreter):
             self.tx_data = test_tx.txs[0]
             for i, child in enumerate(tree.children):
                 if not isinstance(child, Token):
-                    print(f'Visiting child-{i}')
                     return self._get_boolean(self.visit(child))
+             
+        # Gtrans  
+        elif tree.children[0] == 'Gtrans':  
+            
+            for gtrans_iter in range(0, int(tree.children[1].value)):
+                print('='*100)
+                print(f'Gtrans iteration: {gtrans_iter}')
+                
+                for i, child in enumerate(tree.children):
+                    if not isinstance(child, Token):
+                        eval_res = self._get_boolean(self.visit(child))
+                        if eval_res == False:
+                            return False
+                
+                # Move to next tx 
+                max_addr_hash = self._find_highest_out_addr()
+                # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
+                self.addr_data = test_addr.addresses[gtrans_iter]
+                max_tx_hash = self._find_highest_out_tx()
+                # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
+                self.tx_data = test_tx.txs[gtrans_iter+1]
+                self._add_tx_properties()
+                
+            return True
          
         else:
             raise Exception
@@ -273,7 +285,21 @@ class QueryInterpreter(Interpreter):
             raise ValueError(f'Returned value -{bv}- from child is not a boolean value')
         return bv
     
-    def _print_node(self, tree):
+    def _add_tx_properties(self):
+        # Add num inputs and output
+        self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
+        self.tx_data['num_outputs'] = len(self.tx_data.get('out'))
+        
+        # TODO: return 0 BTC if len(inputs) and len(outs) is 0
+        # Add total BTC received and sent to the tx
+        self.tx_data['total_rec'] = sum(
+            [i.get('prev_out').get('value') for i in self.tx_data.get('inputs')]
+        ) / 1e8 
+        self.tx_data['total_sent'] = sum(
+            [o.get('value') for o in self.tx_data.get('out')]
+        ) / 1e8 
+    
+    def _print_node(self, tree, eval_res):
         """
         Print the tree node for debugging purposes.
 
@@ -286,4 +312,4 @@ class QueryInterpreter(Interpreter):
                 s += f'{child} '
             else:
                 s += f'{child.children[0]} '
-        print(s)
+        print(f'{s}- returned: {eval_res}')

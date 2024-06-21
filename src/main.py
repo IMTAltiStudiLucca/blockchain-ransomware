@@ -13,14 +13,14 @@ def main():
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225 and Transaction.num_outputs = 2 and Transaction.time > 1664289786 and Transaction.lock_time = 755925",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size = 225 and (Transaction.time > 1664289786 and Transaction.num_outputs = 2))",
-        # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225"
+        # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225 and Transaction.num_outputs = 2 and Transaction.time > 1664289786 and Transaction.lock_time = 755925"
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 220 and Transaction.size < 280) and (Transaction.num_outputs = 2)",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (not (Transaction.size > 220 and Transaction.size < 280)) and (not Transaction.num_outputs = 2)",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
         # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
-        "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Xtrans Transaction.size > 220",
+        # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Xtrans Transaction.size > 220",
     ]
 
 
@@ -34,6 +34,7 @@ def main():
         parsed_query = lark_parser.parse(tq)
         node, query_result = QueryInterpreter().visit(parsed_query)
         # query_result = list(itertools.chain(*query_result))[0] #TODO: return only a boolean value
+        print('='*100)
         print(f'Query result for node {node}:\n {query_result}') # .pretty()
         # NOTE: To print the AST, we need to import "from lark import tree" and do this step without a transformer class.
         # tree.pydot__tree_to_png(lark_parser.parse(tq), f"query_{i}.png")

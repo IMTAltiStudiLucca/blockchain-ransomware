@@ -145,7 +145,7 @@ class QueryInterpreter(Interpreter):
         # If the structure is a logical 'and' operation, evaluate each child.
         elif tree.children[1] == 'and':
             
-            for i, child in enumerate(tree.children):
+            for _, child in enumerate(tree.children):
                 if not isinstance(child, Token):
                     eval_res = self._get_boolean(self.visit(child))
                     # End the visit if one child returns False                   
@@ -165,7 +165,7 @@ class QueryInterpreter(Interpreter):
             max_tx_hash = self._find_highest_out_tx()
             # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
             self.tx_data = test_tx.txs[0]
-            for i, child in enumerate(tree.children):
+            for _, child in enumerate(tree.children):
                 if not isinstance(child, Token):
                     return self._get_boolean(self.visit(child))
              
@@ -175,23 +175,37 @@ class QueryInterpreter(Interpreter):
             for gtrans_iter in range(0, int(tree.children[1].value)):
                 print('='*100)
                 print(f'Gtrans iteration: {gtrans_iter}')
+                print(f"Current tx: {self.tx_data['hash']}")
                 
-                for i, child in enumerate(tree.children):
+                for _, child in enumerate(tree.children):
                     if not isinstance(child, Token):
                         eval_res = self._get_boolean(self.visit(child))
+                        # If at least one is tx is false, return False 
+                        # otherwise move to the next tx
                         if eval_res == False:
                             return False
                 
-                # Move to next tx 
-                max_addr_hash = self._find_highest_out_addr()
-                # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
-                self.addr_data = test_addr.addresses[gtrans_iter]
-                max_tx_hash = self._find_highest_out_tx()
-                # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
-                self.tx_data = test_tx.txs[gtrans_iter+1]
-                self._add_tx_properties()
-                
+                self._move_to_next_tx(gtrans_iter)   
             return True
+        
+        # Ftrans  
+        elif tree.children[0] == 'Ftrans':  
+            
+            for ftrans_iter in range(0, int(tree.children[1].value)):
+                print('='*100)
+                print(f'Ftrans iteration: {ftrans_iter}')
+                print(f"Current tx: {self.tx_data['hash']}")
+                
+                for _, child in enumerate(tree.children):
+                    if not isinstance(child, Token):
+                        eval_res = self._get_boolean(self.visit(child))
+                        # If at least one is tx is true, return True 
+                        # otherwise move to the next tx
+                        if eval_res == True:
+                            return True
+                
+                self._move_to_next_tx(ftrans_iter)   
+            return False
          
         else:
             raise Exception
@@ -285,6 +299,16 @@ class QueryInterpreter(Interpreter):
             raise ValueError(f'Returned value -{bv}- from child is not a boolean value')
         return bv
     
+    def _move_to_next_tx(self, iter):
+        # Move to next tx 
+        max_addr_hash = self._find_highest_out_addr()
+        # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
+        self.addr_data = test_addr.addresses[iter]
+        max_tx_hash = self._find_highest_out_tx()
+        # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
+        self.tx_data = test_tx.txs[iter+1]
+        self._add_tx_properties()
+        
     def _add_tx_properties(self):
         # Add num inputs and output
         self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
@@ -298,7 +322,7 @@ class QueryInterpreter(Interpreter):
         self.tx_data['total_sent'] = sum(
             [o.get('value') for o in self.tx_data.get('out')]
         ) / 1e8 
-    
+        
     def _print_node(self, tree, eval_res):
         """
         Print the tree node for debugging purposes.

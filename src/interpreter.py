@@ -10,6 +10,7 @@ class QueryInterpreter(Interpreter):
     Interpreter class for querying and transforming data.
     """
     # TODO: log system for visited nodes
+    # TODO: NetworkX for creating a graph of tx and addr
     
     def query(self, tree):
         """

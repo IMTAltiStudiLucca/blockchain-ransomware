@@ -11,6 +11,8 @@ class QueryInterpreter(Interpreter):
     """
     # TODO: log system for visited nodes
     # TODO: NetworkX for creating a graph of tx and addr
+    # TODO: Add readme.md
+    # TODO: _has_tx_one_output_higher_than_other as a query
     
     def query(self, tree):
         """
@@ -259,11 +261,13 @@ class QueryInterpreter(Interpreter):
         Returns:
             Result of expression evaluation.
         """
+        # TODO: check type of the other operator, if it's a tree call visit
         expression = self.visit_children(tree)[0]
 
         operator = tree.children[1]
         
         if operator == '=':
+            # TODO: implement transaction_atom OP transaction_atom
             # TODO: add comment here
             right_value = tree.children[3] if tree.children[2] in ['HEX', 'IP'] else tree.children[2]
             return str(expression) == right_value.value
@@ -339,6 +343,7 @@ class QueryInterpreter(Interpreter):
         self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
         self.tx_data['num_outputs'] = len(self.tx_data.get('out'))
         
+        # TODO: add as a key out_value_1 _2
         # TODO: return 0 BTC if len(inputs) and len(outs) is 0
         # Add total BTC received and sent to the tx
         self.tx_data['total_rec'] = sum(

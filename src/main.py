@@ -10,6 +10,7 @@ def main():
     # Test queries
     test_queries = [
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.num_outputs = 2",
+        "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.num_outputs = 2",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225 and Transaction.num_outputs = 2 and Transaction.time > 1664289786 and Transaction.lock_time = 755925",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size = 225 and (Transaction.time > 1664289786 and Transaction.num_outputs = 2))",
@@ -23,7 +24,7 @@ def main():
         # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
         # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Xtrans Transaction.size > 220",
         # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Gaddr 3 (Address.n_tx > 1 and not Address.total_sent > 10000)",
-        "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Faddr 3 (Address.n_tx > 1 and Address.total_sent > 10000) and Address.final_balance > 0",
+        # ="From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Faddr 3 (Address.n_tx > 1 and Address.total_sent > 10000) and Address.final_balance > 0",
     ]
 
 

@@ -1,7 +1,7 @@
 from lark import Token
 from lark.visitors import Interpreter
 
-from blockchaininfo_API_PoC import StrategyChecker
+from blockchain_data_API import BlockchainDataAPI
 import test_addr, test_tx 
 
 
@@ -9,11 +9,15 @@ class QueryInterpreter(Interpreter):
     """
     Interpreter class for querying and transforming data.
     """
-    # TODO: log system for visited nodes
     # TODO: NetworkX for creating a graph of tx and addr
     # TODO: Add readme.md
     # TODO: _has_tx_one_output_higher_than_other as a query
     
+    def __init__(self, debug_mode=False):
+        super().__init__()
+        self.debug_mode = debug_mode
+        self.api = BlockchainDataAPI()
+        
     def query(self, tree):
         """
         Process a query node.
@@ -48,13 +52,11 @@ class QueryInterpreter(Interpreter):
         Returns:
             The hash of the transaction.
         """
-        tx_hash = tree.children[0].children[0].value
-        # self.tx_data = StrategyChecker.api.get_transaction(tx_hash)
-        self.tx_data = test_tx.txs[0]
-        # self.tx_data = test_tx.colonial_pipeline_tx1
-        
+        self.tx_data = (
+            self.api.get_transaction(tree.children[0].children[0].value) 
+            if not self.debug_mode else test_tx.txs[0]
+        )
         self._add_tx_properties()
-        
         return self.tx_data['hash']
             
     def node_address(self, tree):
@@ -67,9 +69,11 @@ class QueryInterpreter(Interpreter):
         Returns:
             The address hash.
         """
-        addr_hash = tree.children[0].children[0].value
-        # self.addr_data = StrategyChecker.api.get_address(addr_hash)
-        self.addr_data = test_addr.addresses[0]
+        self.addr_data = (
+            self.api.get_address(tree.children[0].children[0].value)
+            if not self.debug_mode else test_addr.addresses[0]
+        )
+        self._add_addr_properties()
         return self.addr_data['address']
         
     def transaction_prop(self, tree):
@@ -107,7 +111,7 @@ class QueryInterpreter(Interpreter):
             Result of expression checking.
         """
         eval_res =  self._expression_checker(tree)
-        self._print_node(tree, eval_res)
+        self._print_node('Transaction expression:', tree, eval_res)
         return eval_res
     
     def address_expression(self, tree):
@@ -121,7 +125,7 @@ class QueryInterpreter(Interpreter):
             Result of expression checking.
         """
         eval_res =  self._expression_checker(tree)
-        self._print_node(tree, eval_res)
+        self._print_node('Address expression:', tree, eval_res)
         return eval_res
     
     def _prop_checker(self, tree):
@@ -165,9 +169,10 @@ class QueryInterpreter(Interpreter):
                 
         # Xtrans
         elif tree.children[0] == 'Xtrans':  
-            max_tx_hash = self._find_highest_out_tx()
-            # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
-            self.tx_data = test_tx.txs[0]
+            self.tx_data = (
+                self.api.get_transaction(self._find_highest_out_tx())
+                if not self.debug_mode else test_tx.txs[0]
+            )
             for _, child in enumerate(tree.children):
                 if not isinstance(child, Token):
                     return self._get_boolean(self.visit(child))
@@ -268,7 +273,7 @@ class QueryInterpreter(Interpreter):
         
         if operator == '=':
             # TODO: implement transaction_atom OP transaction_atom
-            # TODO: add comment here
+            # If the expression contains 'HEX' or 'IP', select the last child on the right as right_value 
             right_value = tree.children[3] if tree.children[2] in ['HEX', 'IP'] else tree.children[2]
             return str(expression) == right_value.value
         elif operator == '<':
@@ -320,31 +325,44 @@ class QueryInterpreter(Interpreter):
     
     # TODO: if tx or addr doesn't exist stop iterating
     def _move_to_next_tx(self, iter):
-        # Move to next tx 
-        max_addr_hash = self._find_highest_out_addr()
-        # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
-        self.addr_data = test_addr.addresses[iter]
-        max_tx_hash = self._find_highest_out_tx()
-        # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
-        self.tx_data = test_tx.txs[iter+1]
+        """
+        Moves to the next transaction in the sequence.
+
+        Args:
+            iter: The current iteration index.
+        """
+        if not self.debug_mode:
+            self.addr_data = self.api.get_address(self._find_highest_out_addr())
+            self.tx_data = self.api.get_transaction(self._find_highest_out_tx())
+        else:
+            self.addr_data = test_addr.addresses[iter]
+            self.tx_data = test_tx.txs[iter+1]
         self._add_tx_properties()
         
     def _move_to_next_addr(self, iter):
-        # Move to next addr 
-        max_tx_hash = self._find_highest_out_tx()
-        # self.tx_data = StrategyChecker.api.get_transaction(max_tx_hash)
-        self.tx_data = test_tx.txs[iter]
-        max_addr_hash = self._find_highest_out_addr()
-        # self.addr_data = StrategyChecker.api.get_address(max_addr_hash)
-        self.addr_data = test_addr.addresses[iter+1]
+        """
+        Moves to the next address in the sequence.
+
+        Args:
+            iter: The current iteration index.
+        """
+        if not self.debug_mode:
+            self.tx_data = self.api.get_transaction(self._find_highest_out_tx())
+            self.addr_data = self.api.get_address(self._find_highest_out_addr())
+        else:
+            self.tx_data = test_tx.txs[iter]
+            self.addr_data = test_addr.addresses[iter+1]
+        self._add_addr_properties()
         
     def _add_tx_properties(self):
+        """
+        Adds properties to the current transaction data.
+        """
         # Add num inputs and output
         self.tx_data['num_inputs'] = len(self.tx_data.get('inputs'))
         self.tx_data['num_outputs'] = len(self.tx_data.get('out'))
         
         # TODO: add as a key out_value_1 _2
-        # TODO: return 0 BTC if len(inputs) and len(outs) is 0
         # Add total BTC received and sent to the tx
         self.tx_data['total_rec'] = sum(
             [i.get('prev_out').get('value') for i in self.tx_data.get('inputs')]
@@ -352,6 +370,9 @@ class QueryInterpreter(Interpreter):
         self.tx_data['total_sent'] = sum(
             [o.get('value') for o in self.tx_data.get('out')]
         ) / 1e8 
+        
+    def _add_addr_properties(self):
+        pass
         
     def _find_highest_out_addr(self):
         """
@@ -377,14 +398,16 @@ class QueryInterpreter(Interpreter):
         max_tx_hash = max_tx.get('hash') if max_tx else None
         return max_tx_hash    
     
-    def _print_node(self, tree, eval_res):
+    def _print_node(self, descriptor, tree, eval_res):
         """
-        Print the tree node for debugging purposes.
+        Prints the tree node for debugging purposes.
 
         Args:
+            descriptor: A descriptor for the current node.
             tree: The tree structure for the current query starting from the current node.
+            eval_res: The evaluation result of the current node.
         """
-        s = ''
+        s = f'{descriptor} '
         for child in tree.children:
             if isinstance(child, Token):
                 s += f'{child} '

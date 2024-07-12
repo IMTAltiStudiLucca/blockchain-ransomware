@@ -10,7 +10,6 @@ class QueryInterpreter(Interpreter):
     Interpreter class for querying and transforming data.
     """
     # TODO: NetworkX for creating a graph of tx and addr
-    # TODO: Add readme.md
     # TODO: _has_tx_one_output_higher_than_other as a query
     
     def __init__(self, debug_mode=False):
@@ -266,24 +265,29 @@ class QueryInterpreter(Interpreter):
         Returns:
             Result of expression evaluation.
         """
-        # TODO: check type of the other operator, if it's a tree call visit
-        expression = self.visit_children(tree)[0]
+        left_child = self.visit_children(tree)[0]
+
+        if isinstance(left_child, Token):
+            # Run 'IN' operation -> left op is a hash or address, right op is the list of input or outputs
+            return tree.children[1].value in self.visit_children(tree)[3]
 
         operator = tree.children[1]
+        right_child = self.visit_children(tree)[-1]
+        left_child, right_child = self._cast_for_eval([left_child, right_child])
         
         if operator == '=':
-            # TODO: implement transaction_atom OP transaction_atom
-            # If the expression contains 'HEX' or 'IP', select the last child on the right as right_value 
-            right_value = tree.children[3] if tree.children[2] in ['HEX', 'IP'] else tree.children[2]
-            return str(expression) == right_value.value
-        elif operator == '<':
-            return expression < float(tree.children[2].value)
-        elif operator == '>':
-            return expression > float(tree.children[2].value)
-        else:
-            raise Exception
+            # If the expression contains 'HEX' or 'IP', select the last child on the right as right_value
+            return left_child == right_child
+
+        if operator == '<':
+            return left_child < right_child
+
+        if operator == '>':
+            return left_child > right_child
+
+        raise Exception("Unsupported operator")
         
-    def transaction_atom(self, tree):   
+    def get_tx_atom(self, tree):   
         """
         Process a transaction atom node.
 
@@ -295,6 +299,19 @@ class QueryInterpreter(Interpreter):
         """     
         return self.tx_data[tree.children[0]]
     
+    def get_tx_atom_by_index(self, tree):   
+        """
+        Process a transaction atom node.
+
+        Args:
+            tree: The tree structure for the current query starting from the current node.
+
+        Returns:
+            The value of the transaction relative to the field specified by tx atom
+        """     
+        return self.tx_data[tree.children[0]][int(tree.children[1])]
+    
+    # TODO: rename as get_addr ...
     def address_atom(self, tree):
         """
         Process an address atom node.
@@ -370,9 +387,26 @@ class QueryInterpreter(Interpreter):
         self.tx_data['total_sent'] = sum(
             [o.get('value') for o in self.tx_data.get('out')]
         ) / 1e8 
+        self.tx_data['sent_values'] = [
+            o.get('value')/1e8  for o in self.tx_data.get('out')
+        ]
+        self.tx_data['rec_values'] = [
+            i.get('prev_out').get('value')/1e8 for i in self.tx_data.get('inputs')
+        ]
+        self.tx_data['out_addresses'] = [
+            o.get('addr') for o in self.tx_data.get('out')
+        ]
+        self.tx_data['in_addresses'] = [
+            i.get('prev_out').get('addr') for i in self.tx_data.get('inputs')
+        ]
         
     def _add_addr_properties(self):
-        pass
+        self.addr_data['out_txs_hash'] = [
+            i.get('hash') for i in self.addr_data.get('txs') if i.get('result') < 0
+        ]
+        self.addr_data['in_txs_hash'] = [
+            i.get('hash') for i in self.addr_data.get('txs') if i.get('result') >= 0
+        ]
         
     def _find_highest_out_addr(self):
         """
@@ -397,6 +431,19 @@ class QueryInterpreter(Interpreter):
         max_tx = min(txs, key=lambda tx: tx.get('result', 0), default=None)
         max_tx_hash = max_tx.get('hash') if max_tx else None
         return max_tx_hash    
+    
+    def _cast_for_eval(self, op_list):
+        if all(not isinstance(op, Token) for op in op_list):
+            # No op is a Token
+            return op_list
+
+        if type(op_list[0]) != type(op_list[1]):
+            if isinstance(op_list[0], Token):
+                op_list[0] = type(op_list[1])(op_list[0])
+            else:
+                # FIXME: Bug when casting Token to bool 
+                op_list[1] = type(op_list[0])(op_list[1])
+        return op_list
     
     def _print_node(self, descriptor, tree, eval_res):
         """

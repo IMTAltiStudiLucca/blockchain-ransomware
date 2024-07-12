@@ -14,17 +14,20 @@ def main():
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.size = 225 and Transaction.num_outputs = 2 and Transaction.time > 1664289786 and Transaction.lock_time = 755925",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size = 225 and (Transaction.time > 1664289786 and Transaction.num_outputs = 2))",
-        "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225 and Transaction.num_outputs = 2 and Transaction.time > 1664289786 and Transaction.lock_time > 755924"
+        # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Gtrans 3 Transaction.size = 225 and Transaction.num_outputs = 2 and Transaction.time > 1664289786 and Transaction.lock_time > 755924"
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Ftrans 3 Transaction.size = 226 and Transaction.num_outputs = 2"
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (Transaction.size > 220 and Transaction.size < 280) and (Transaction.num_outputs = 2)",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check (not (Transaction.size > 220 and Transaction.size < 280)) and (not Transaction.num_outputs = 2)",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.hash = HEX 1231231a0714f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f",
         # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.relayed_by = IP 0.0.0.0",
-        # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
+        "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.double_spend = False",
         # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Address.address = HEX bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40",
         # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Xtrans Transaction.size > 220",
         # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Gaddr 3 (Address.n_tx > 1 and not Address.total_sent > 10000)",
-        # ="From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Faddr 3 (Address.n_tx > 1 and Address.total_sent > 10000) and Address.final_balance > 0",
+        # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check Faddr 3 (Address.n_tx > 1 and Address.total_sent > 10000) and Address.final_balance > 0",
+        # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check HEX 1KeNiiR3BZT8GPqQ61ihmvwRMsCQtcXNYC in Transaction.out_addresses",
+        # "From Address bc1qram93t5yppk9djr8a4p4k0vregdehnzcvp9y40 Check HEX 23528e9e9335fa05eee083ba326abe7058c3b489962707204162a7b9b87c8da0 in Address.out_txs_hash",
+        # "From Transaction 7a51a014f6bd3ccad3a403a99ad525f1aff310fbffe904bada56440d4abeba7f Check Transaction.sent_values[0] > Transaction.sent_values[1]",
     ]
 
 

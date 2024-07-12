@@ -55,17 +55,12 @@ class BlockchainDataAPI:
             print(f"Failed to retrieve data for transaction with hash {tx_hash}")
             return None
 
-# TODO: obsolete, to be removed
 class StrategyChecker:
     api = BlockchainDataAPI()
     
     MEAN_NORM_RATIO = 0.9821
     DEV_NORM_RATIO = 0.0356
     
-    # TODO: patience mechanism
-    # TODO: loop txs
-    # TODO: nlocktime check, stats regarding the block height (often is the previous one)
-
     @staticmethod
     def _has_tx_disposable_addresses(tx_data):
         """
@@ -93,7 +88,6 @@ class StrategyChecker:
         :param addr_hash: The hash of the Bitcoin address to check.
         :return: True if the address is from a tax haven, False otherwise.
         """
-        # TODO: Can we find a list of known tax haven addresses?
         known_tax_haven_addresses = [
             "address1",
             "address2",
@@ -158,7 +152,7 @@ class StrategyChecker:
                 StrategyChecker._has_tx_one_output_higher_than_other(tx_data, threshold=0.4),
                 StrategyChecker._has_tx_disposable_addresses(tx_data),
                 StrategyChecker._has_not_tx_locktime_zero(tx_data),
-                # StrategyChecker._is_address_from_tax_haven(addr_hash),    # TODO: Uncomment this condition once it is implemented.
+                # StrategyChecker._is_address_from_tax_haven(addr_hash),
             ]
         )
 

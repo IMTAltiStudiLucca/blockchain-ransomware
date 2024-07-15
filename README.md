@@ -68,7 +68,7 @@ If you use CryptoQuery in your research, please cite the following paper:
 @article{blanchini2022supporting,
 title={Supporting Criminal Investigations on the Blockchain: A Temporal Logic-based Approach},
 author={Blanchini, Marco and Cerreta, Michele and Di Monda, Davide and Fabbri, Matteo and Raciti, Mario and Ahmad, Hamza Sajjad and Costa, Gabriele},
-year={2022}
+year={2024}
 }
 ```
 

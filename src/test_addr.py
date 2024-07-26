@@ -307,4 +307,4 @@ addr3 = {'address': 'bc1qerr7dngzhmjkh43eq62h7ez2yycqlwlrprapn7',
         'weight': 573}]}
 
 
-addresses = [addr1, addr2, addr3, None]
+addresses = [addr1, addr2, addr3, addr3]

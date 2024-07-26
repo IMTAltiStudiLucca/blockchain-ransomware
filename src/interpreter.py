@@ -1,8 +1,10 @@
+import importlib
 from lark import Token
 from lark.visitors import Interpreter
 
 from blockchain_data_API import BlockchainDataAPI
-import test_addr, test_tx 
+import test_addr, test_tx
+import utils 
 
 
 class QueryInterpreter(Interpreter):
@@ -110,7 +112,7 @@ class QueryInterpreter(Interpreter):
             Result of expression checking.
         """
         eval_res =  self._expression_checker(tree)
-        self._print_node('Transaction expression:', tree, eval_res)
+        utils.print_node('Transaction expression:', tree, eval_res)
         return eval_res
     
     def address_expression(self, tree):
@@ -124,7 +126,7 @@ class QueryInterpreter(Interpreter):
             Result of expression checking.
         """
         eval_res =  self._expression_checker(tree)
-        self._print_node('Address expression:', tree, eval_res)
+        utils.print_node('Address expression:', tree, eval_res)
         return eval_res
     
     def _prop_checker(self, tree):
@@ -146,114 +148,17 @@ class QueryInterpreter(Interpreter):
             
             for i, child in enumerate(tree.children):
                 if not isinstance(child, Token):
-                    return self._get_boolean(self.visit(child))
+                    return utils.get_boolean(self.visit(child))
                 
-        # If the structure is a logical 'and' operation, evaluate each child.
-        elif tree.children[1] == 'and':
-            
-            for _, child in enumerate(tree.children):
-                if not isinstance(child, Token):
-                    eval_res = self._get_boolean(self.visit(child))
-                    # End the visit if one child returns False                   
-                    if eval_res == False:
-                        return False
-            return True   
-        
-        # If the structure has a logical 'not' operation
-        elif tree.children[0] == 'not':  
-            
-            for i, child in enumerate(tree.children):
-                if not isinstance(child, Token):
-                    return not self._get_boolean(self.visit(child))
+        else:    
                 
-        # Xtrans
-        elif tree.children[0] == 'Xtrans':  
-            self.tx_data = (
-                self.api.get_transaction(self._find_highest_out_tx())
-                if not self.debug_mode else test_tx.txs[0]
+            Operator = getattr(
+                importlib.import_module('operators'), tree.children[1 if tree.children[1] == 'And' else 0]
             )
-            for _, child in enumerate(tree.children):
-                if not isinstance(child, Token):
-                    return self._get_boolean(self.visit(child))
-             
-        # Gtrans  
-        elif tree.children[0] == 'Gtrans':  
+            operator = Operator()
             
-            for gtrans_iter in range(0, int(tree.children[1].value)):
-                print('='*100)
-                print(f'Gtrans iteration: {gtrans_iter}')
-                print(f"Current tx: {self.tx_data['hash']}")
-                
-                for _, child in enumerate(tree.children):
-                    if not isinstance(child, Token):
-                        eval_res = self._get_boolean(self.visit(child))
-                        # If at least one tx is false, return False 
-                        # otherwise move to the next tx
-                        if eval_res == False:
-                            return False
-                
-                self._move_to_next_tx(gtrans_iter)   
-            return True
-        
-        # Ftrans  
-        elif tree.children[0] == 'Ftrans':  
-            
-            for ftrans_iter in range(0, int(tree.children[1].value)):
-                print('='*100)
-                print(f'Ftrans iteration: {ftrans_iter}')
-                print(f"Current tx: {self.tx_data['hash']}")
-                
-                for _, child in enumerate(tree.children):
-                    if not isinstance(child, Token):
-                        eval_res = self._get_boolean(self.visit(child))
-                        # If at least one tx is true, return True 
-                        # otherwise move to the next tx
-                        if eval_res == True:
-                            return True
-                
-                self._move_to_next_tx(ftrans_iter)   
-            return False
-        
-        # Gaddr  
-        elif tree.children[0] == 'Gaddr':  
-            
-            for gaddr_iter in range(0, int(tree.children[1].value)):
-                print('='*100)
-                print(f'Gaddr iteration: {gaddr_iter}')
-                print(f"Current addr: {self.addr_data['address']}")
-                
-                for _, child in enumerate(tree.children):
-                    if not isinstance(child, Token):
-                        eval_res = self._get_boolean(self.visit(child))
-                        # If at least one addr is false, return False 
-                        # otherwise move to the next tx
-                        if eval_res == False:
-                            return False
-                
-                self._move_to_next_addr(gaddr_iter)   
-            return True
-        
-        # Faddr 
-        elif tree.children[0] == 'Faddr':  
-            
-            for faddr_iter in range(0, int(tree.children[1].value)):
-                print('='*100)
-                print(f'Faddr iteration: {faddr_iter}')
-                print(f"Current addr: {self.addr_data['address']}")
-                
-                for _, child in enumerate(tree.children):
-                    if not isinstance(child, Token):
-                        eval_res = self._get_boolean(self.visit(child))
-                        # If at least one addr is true, return True 
-                        # otherwise move to the next tx
-                        if eval_res == True:
-                            return True
-                
-                self._move_to_next_addr(faddr_iter)   
-            return False
-         
-        else:
-            raise Exception
+            return operator.eval(tree.children, self)
+
 
     def _expression_checker(self, tree):  
         """
@@ -273,7 +178,7 @@ class QueryInterpreter(Interpreter):
 
         operator = tree.children[1]
         right_child = self.visit_children(tree)[-1]
-        left_child, right_child = self._cast_for_eval([left_child, right_child])
+        left_child, right_child = utils.cast_for_eval([left_child, right_child])
         
         if operator == '=':
             # If the expression contains 'HEX' or 'IP', select the last child on the right as right_value
@@ -323,22 +228,6 @@ class QueryInterpreter(Interpreter):
             The value of the address relative to the field specified by addr atom
         """
         return self.addr_data[tree.children[0]]
-
-    def _get_boolean(self, v):
-        """
-        Convert a value to a boolean.
-
-        Args:
-            tree: The tree structure for the current query starting from the current node.
-            v: The value to convert.
-
-        Returns:
-            The boolean representation of the value.
-        """
-        bv = v[0] if isinstance(v, list) else v
-        if not isinstance(bv, bool):
-            raise ValueError(f'Returned value -{bv}- from child is not a boolean value')
-        return bv
     
     # TODO: if tx or addr doesn't exist stop iterating
     def _move_to_next_tx(self, iter):
@@ -431,33 +320,3 @@ class QueryInterpreter(Interpreter):
         max_tx = min(txs, key=lambda tx: tx.get('result', 0), default=None)
         max_tx_hash = max_tx.get('hash') if max_tx else None
         return max_tx_hash    
-    
-    def _cast_for_eval(self, op_list):
-        if all(not isinstance(op, Token) for op in op_list):
-            # No op is a Token
-            return op_list
-
-        if type(op_list[0]) != type(op_list[1]):
-            if isinstance(op_list[0], Token):
-                op_list[0] = type(op_list[1])(op_list[0])
-            else:
-                # FIXME: Bug when casting Token to bool 
-                op_list[1] = type(op_list[0])(op_list[1])
-        return op_list
-    
-    def _print_node(self, descriptor, tree, eval_res):
-        """
-        Prints the tree node for debugging purposes.
-
-        Args:
-            descriptor: A descriptor for the current node.
-            tree: The tree structure for the current query starting from the current node.
-            eval_res: The evaluation result of the current node.
-        """
-        s = f'{descriptor} '
-        for child in tree.children:
-            if isinstance(child, Token):
-                s += f'{child} '
-            else:
-                s += f'{child.children[0]} '
-        print(f'{s}- returned: {eval_res}')
